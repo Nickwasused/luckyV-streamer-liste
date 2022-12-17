@@ -140,8 +140,8 @@ async function fetch_altv_cdn() {
         import.meta.env.VERCEL_ENV == "production"
             ? "/api/altv"
             : `https://api.altv.mp/server/${
-                    import.meta.env.VITE_ALTV_SERVER_ID
-                }`,
+                import.meta.env.VITE_ALTV_SERVER_ID
+            }`,
         "altv_server_data"
     );
 
@@ -160,10 +160,10 @@ onBeforeMount(() => {
 
 onMounted(() => {
     if (update_timer.value == null) {
-    update_timer.value = setInterval(() => {
-        fetch_altv_cdn();
-        fetch_altv_server();
-    }, 120000);
+        update_timer.value = setInterval(() => {
+            fetch_altv_cdn();
+            fetch_altv_server();
+        }, 120000);
     }
 });
 
