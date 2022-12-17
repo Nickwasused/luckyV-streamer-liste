@@ -7,31 +7,31 @@
       :class="searchfilter == 'viewer_high' ? 'active' : ''"
       @click="set_filter('viewer_high')"
     >
-      {{ $t("streamer.sort.viewer_high") }}
+      {{ t("streamer.sort.viewer_high") }}
     </button>
     <button
       :class="searchfilter == 'viewer_low' ? 'active' : ''"
       @click="set_filter('viewer_low')"
     >
-      {{ $t("streamer.sort.viewer_low") }}
+      {{ t("streamer.sort.viewer_low") }}
     </button>
     <button
       :class="searchfilter == 'alphabetically_az' ? 'active' : ''"
       @click="set_filter('alphabetically_az')"
     >
-      {{ $t("streamer.sort.alphabetically_az") }}
+      {{ t("streamer.sort.alphabetically_az") }}
     </button>
     <button
       :class="searchfilter == 'alphabetically_za' ? 'active' : ''"
       @click="set_filter('alphabetically_za')"
     >
-      {{ $t("streamer.sort.alphabetically_za") }}
+      {{ t("streamer.sort.alphabetically_za") }}
     </button>
     <button
       :class="searchfilter.includes('shuffle') ? 'active' : ''"
       @click="set_filter('shuffle')"
     >
-      {{ $t("streamer.sort.shuffle") }}
+      {{ t("streamer.sort.shuffle") }}
     </button>
   </div>
   <div
@@ -57,12 +57,12 @@
   <div
     v-if="streamers.length > 0"
     class="searchcombo"
-    :title="$t('page.searchinfo')"
+    :title="t('page.searchinfo')"
   >
     <input
       v-model="searchword"
       type="text"
-      :placeholder="$t('page.search')"
+      :placeholder="t('page.search')"
     >
     <div class="clear_input">
       <img
@@ -86,7 +86,7 @@
   </ul>
   <div v-if="streamers.length <= 0">
     <h1 class="nolive">
-      {{ $t("page.nolive") }}
+      {{ t("page.nolive") }}
     </h1>
   </div>
   <a
@@ -115,12 +115,11 @@ import useDebouncedRef from './useDebouncedRef.js';
 
 const emit = defineEmits(["set_viewer_count", "set_streamer_count"]);
 
-const { locale, t } = useI18n({
+const { t } = useI18n({
     inheritLocale: true,
 });
 
 const streamers = ref([]);
-const views = ref(0);
 const timer = ref(null);
 const imgCacheKey = ref(Math.random().toString().substring(2, 8));
 const searchword = useDebouncedRef("", 300);

@@ -24,18 +24,18 @@
             <table class="card-streamer-table">
               <tr
                 :title="
-                  $t('streamer.tooltips.viewer', {
+                  t('streamer.tooltips.viewer', {
                     user: stream.user_name,
                     viewer: stream.viewer_count,
                   })
                 "
               >
-                <td>{{ $t("streamer.viewer_count") }}</td>
+                <td>{{ t("streamer.viewer_count") }}</td>
                 <td>{{ stream.viewer_count }}</td>
               </tr>
               <tr
                 :title="
-                  $t('streamer.tooltips.live_since', {
+                  t('streamer.tooltips.live_since', {
                     user: stream.user_name,
                     time: new Date(
                       stream.started_at
@@ -44,7 +44,7 @@
                   })
                 "
               >
-                <td>{{ $t("streamer.live_since") }}</td>
+                <td>{{ t("streamer.live_since") }}</td>
                 <td>{{ calculate_time }}</td>
               </tr>
             </table>
@@ -80,7 +80,7 @@ const props = defineProps({
     }
 });
 
-const { locale, t } = useI18n({
+const { t } = useI18n({
     inheritLocale: true,
 });
 const mouseOver = ref(false);

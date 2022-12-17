@@ -7,13 +7,13 @@
       <td>
         <h1
           :title="
-            $t('header.tooltips.streamer', {
+            t('header.tooltips.streamer', {
               streamer_count: streamerCount,
             })
           "
         >
           {{
-            $t("header.streamer_head", { count: streamerCount })
+            t("header.streamer_head", { count: streamerCount })
           }}
         </h1>
       </td>
@@ -23,8 +23,8 @@
     <tr
       :title="
         altv_server.version == altv_cdn.version
-          ? $t('header.tooltips.altv_version_1')
-          : $t('header.tooltips.altv_version_2', {
+          ? t('header.tooltips.altv_version_1')
+          : t('header.tooltips.altv_version_2', {
             version: altv_cdn.version,
           })
       "
@@ -36,7 +36,7 @@
           referrerpolicy="no-referrer"
           target="_blank"
         >
-          {{ $t("header.altv_head_version") }}
+          {{ t("header.altv_head_version") }}
         </a>
       </td>
       <td>
@@ -52,8 +52,8 @@
     <tr
       :title="
         altv_server_active
-          ? $t('header.tooltips.gameserver_1')
-          : $t('header.tooltips.gameserver_2')
+          ? t('header.tooltips.gameserver_1')
+          : t('header.tooltips.gameserver_2')
       "
     >
       <td>
@@ -63,7 +63,7 @@
           referrerpolicy="no-referrer"
           target="_blank"
         >
-          {{ $t("header.game_server_head") }}
+          {{ t("header.game_server_head") }}
         </a>
       </td>
       <td>{{ altv_server_active ? "Online ✔️" : "Offline ❌" }}</td>
@@ -71,13 +71,13 @@
     <tr
       :title="
         altv_server_active
-          ? $t('header.tooltips.players', {
+          ? t('header.tooltips.players', {
             player: altv_server.players,
           })
           : ''
       "
     >
-      <td>{{ $t("header.players_online_head") }}</td>
+      <td>{{ t("header.players_online_head") }}</td>
       <td>
         {{
           altv_server_active
@@ -88,12 +88,12 @@
         }}
       </td>
     </tr>
-    <tr :title="$t('header.tooltips.viewer', { viewer: viewerCount })">
-      <td>{{ $t("header.viewers_head") }}</td>
+    <tr :title="t('header.tooltips.viewer', { viewer: viewerCount })">
+      <td>{{ t("header.viewers_head") }}</td>
       <td>{{ viewerCount }}</td>
     </tr>
-    <tr :title="$t('header.tooltips.refresh')">
-      <td>{{ $t("header.last_refresh_head") }}</td>
+    <tr :title="t('header.tooltips.refresh')">
+      <td>{{ t("header.last_refresh_head") }}</td>
       <td>{{ last_update }}</td>
     </tr>
   </table>
