@@ -22,10 +22,10 @@
   <table class="info_table">
     <tr
       :title="
-        altv_server['version'] == altv_cdn['version']
+        altv_server.version == altv_cdn.version
           ? $t('header.tooltips.altv_version_1')
           : $t('header.tooltips.altv_version_2', {
-            version: altv_cdn['version'],
+            version: altv_cdn.version,
           })
       "
     >
@@ -42,9 +42,9 @@
       <td>
         {{
           altv_server_active
-            ? altv_server["version"] == altv_cdn["version"]
-              ? `${altv_server["version"]} ✔️`
-              : `${altv_server["version"]} ⬆️`
+            ? altv_server.version == altv_cdn.version
+              ? `${altv_server.version} ✔️`
+              : `${altv_server.version} ⬆️`
             : "0.0 ❌"
         }}
       </td>
@@ -72,7 +72,7 @@
       :title="
         altv_server_active
           ? $t('header.tooltips.players', {
-            player: altv_server['players'],
+            player: altv_server.players,
           })
           : ''
       "
@@ -123,8 +123,8 @@ export default {
 
         const altv_server_active = ref(false);
         const last_update = ref(t("header.last_update_never"));
-        const altv_cdn = ref({});
         const update_timer = ref(null);
+        const altv_cdn = ref({});
         const altv_server = ref({});
 
         async function fetch_altv_server() {
@@ -161,8 +161,8 @@ export default {
         })
 
         onMounted(() => {
-          if (update_timer == null) {
-            update_timer = setInterval(() => {
+          if (update_timer.value == null) {
+            update_timer.value = setInterval(() => {
                 fetch_altv_cdn();
                 fetch_altv_server();
             }, 120000);
@@ -170,7 +170,7 @@ export default {
         })
 
         onUnmounted(() => {
-          clearInterval(update_timer);
+          clearInterval(update_timer.value);
         })
 
         return {
