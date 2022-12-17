@@ -156,7 +156,7 @@ async function fetch_altv_cdn() {
 onBeforeMount(() => {
     fetch_altv_cdn();
     fetch_altv_server();
-})
+});
 
 onMounted(() => {
     if (update_timer.value == null) {
@@ -165,11 +165,11 @@ onMounted(() => {
         fetch_altv_server();
     }, 120000);
     }
-})
+});
 
 onUnmounted(() => {
     clearInterval(update_timer.value);
-})
+});
 </script>
 
 <style scoped lang="scss">

@@ -71,7 +71,7 @@ const props = defineProps({
                 "viewer_count": 0,
                 "started_at": "2022-01-01T00:00:01Z",
                 "thumbnail_url": "" 
-            }
+            };
         }
     },
     cacheKey: {
@@ -97,7 +97,7 @@ const calculate_time = computed(() => {
         second: "numeric",
     }).format(diff);
     return utcdate;
-})
+});
 </script>
 
 <style scoped lang="scss">

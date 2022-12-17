@@ -206,7 +206,7 @@ function set_filter(new_filter) {
 
 onBeforeMount(() => {
     get_streamers();
-})
+});
 
 onMounted(() => {
     window_resize();
@@ -226,7 +226,7 @@ onMounted(() => {
             imgcachekey.value = Math.random().toString().substring(2, 8);
         }, 300000);
     }
-})
+});
 
 onUpdated(() => {
     // create a array with only the viewer_count
@@ -237,23 +237,24 @@ onUpdated(() => {
     // emit the result to the App.vue component that will pass it to the Pageheader.vue
     emit("set_viewer_count", totalViewerCount);
     emit("set_streamer_count", streamers.value.length);
-})
+});
 
 onUnmounted(() => {
     clearInterval(timer.value);
     window.removeEventListener("resize", window_resize);
-})
+});
 
 const filterstreamers = computed(() => {
     const tmp_searchword = searchword.value.toLowerCase();
+    let local_filter = searchfilter.value;
     const tmp_streamers = streamers.value.filter((stream) => (
         stream.title.toLowerCase().includes(tmp_searchword) ||
         stream.user_name.toLowerCase().includes(tmp_searchword)
     ));
 
-    if (searchfilter.value.toLowerCase().includes("shuffle")) { searchfilter.value = "shuffle"; }
+    if (local_filter.toLowerCase().includes("shuffle")) { local_filter = "shuffle"; }
 
-    switch (searchfilter.value) {
+    switch (local_filter) {
         case "viewer_high":
             return tmp_streamers.sort(function (a, b) {
                 return a["viewer_count"] - b["viewer_count"];
@@ -279,7 +280,7 @@ const filterstreamers = computed(() => {
         default:
             return tmp_streamers;
     }
-})
+});
 </script>
 
 <style lang="scss">
