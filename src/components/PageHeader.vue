@@ -99,92 +99,77 @@
   </table>
 </template>
 
-<script>
-import { useI18n } from "vue-i18n";
+<script setup>
 import { onMounted, onUnmounted, onBeforeMount, ref } from "vue";
+import { useI18n } from "vue-i18n";
 import api from "../mixins/api.js";
 
-export default {
-    name: "PageHeader",
-    props: {
-        viewerCount: {
-            type: Number,
-            default: 0
-        },
-        streamerCount: {
-            type: Number,
-            default: 0
-        },
+const props = defineProps({
+    viewerCount: {
+        type: Number,
+        default: 0
     },
-    setup() {
-        const { locale, t } = useI18n({
-            inheritLocale: true,
-        });
+    streamerCount: {
+        type: Number,
+        default: 0
+    },
+});
 
-        const altv_server_active = ref(false);
-        const last_update = ref(t("header.last_update_never"));
-        const update_timer = ref(null);
-        const altv_cdn = ref({});
-        const altv_server = ref({});
+const { locale, t } = useI18n({
+    inheritLocale: true,
+});
 
-        async function fetch_altv_server() {
-            const cdn_response = await api.fetch_or_cache(
-                "https://cdn.altv.mp/server/release/x64_linux/update.json",
-                "altv_server_cdn",
-                60
-            );
+const altv_server_active = ref(false);
+const last_update = ref(t("header.last_update_never"));
+const update_timer = ref(null);
+const altv_cdn = ref({});
+const altv_server = ref({});
 
-            altv_cdn.value = cdn_response;
-        }
+async function fetch_altv_server() {
+    const cdn_response = await api.fetch_or_cache(
+        "https://cdn.altv.mp/server/release/x64_linux/update.json",
+        "altv_server_cdn",
+        60
+    );
 
-        async function fetch_altv_cdn() {
-            const api_response = await api.fetch_or_cache(
-                import.meta.env.VERCEL_ENV == "production"
-                    ? "/api/altv"
-                    : `https://api.altv.mp/server/${
-                          import.meta.env.VITE_ALTV_SERVER_ID
-                      }`,
-                "altv_server_data"
-            );
+    altv_cdn.value = cdn_response;
+}
 
-            last_update.value = new Date().toLocaleTimeString(locale);
+async function fetch_altv_cdn() {
+    const api_response = await api.fetch_or_cache(
+        import.meta.env.VERCEL_ENV == "production"
+            ? "/api/altv"
+            : `https://api.altv.mp/server/${
+                    import.meta.env.VITE_ALTV_SERVER_ID
+                }`,
+        "altv_server_data"
+    );
 
-            if (api_response["active"]) {
-                altv_server.value = api_response["info"];
-                altv_server_active.value = api_response["active"];
-            }
-        }
+    last_update.value = new Date().toLocaleTimeString(locale);
 
-        onBeforeMount(() => {
-            fetch_altv_cdn();
-            fetch_altv_server();
-        })
-
-        onMounted(() => {
-          if (update_timer.value == null) {
-            update_timer.value = setInterval(() => {
-                fetch_altv_cdn();
-                fetch_altv_server();
-            }, 120000);
-          }
-        })
-
-        onUnmounted(() => {
-          clearInterval(update_timer.value);
-        })
-
-        return {
-            fetch_altv_server,
-            fetch_altv_cdn,
-            altv_server_active,
-            last_update,
-            altv_cdn,
-            update_timer,
-            altv_server,
-            locale, t 
-        };
+    if (api_response["active"]) {
+        altv_server.value = api_response["info"];
+        altv_server_active.value = api_response["active"];
     }
-};
+}
+
+onBeforeMount(() => {
+    fetch_altv_cdn();
+    fetch_altv_server();
+})
+
+onMounted(() => {
+    if (update_timer.value == null) {
+    update_timer.value = setInterval(() => {
+        fetch_altv_cdn();
+        fetch_altv_server();
+    }, 120000);
+    }
+})
+
+onUnmounted(() => {
+    clearInterval(update_timer.value);
+})
 </script>
 
 <style scoped lang="scss">
