@@ -101,7 +101,7 @@
 
 <script>
 import { useI18n } from "vue-i18n";
-import { ref } from "vue";
+import { onMounted, onUnmounted, onBeforeMount, ref } from "vue";
 import api from "../mixins/api.js";
 
 export default {
@@ -127,41 +127,17 @@ export default {
         const update_timer = ref(null);
         const altv_server = ref({});
 
-        return { 
-            altv_server_active,
-            last_update,
-            altv_cdn,
-            update_timer,
-            altv_server,
-            locale, t 
-        };
-    },
-    beforeMount() {
-        this.fetch_altv_cdn();
-        this.fetch_altv_server();
-    },
-    mounted: function () {
-        if (this.update_timer == null) {
-            this.update_timer = setInterval(() => {
-                this.fetch_altv_cdn();
-                this.fetch_altv_server();
-            }, 120000);
-        }
-    },
-    unmounted() {
-        clearInterval(this.update_timer);
-    },
-    methods: {
-        async fetch_altv_server() {
+        async function fetch_altv_server() {
             const cdn_response = await api.fetch_or_cache(
                 "https://cdn.altv.mp/server/release/x64_linux/update.json",
                 "altv_server_cdn",
                 60
             );
 
-            this.altv_cdn = cdn_response;
-        },
-        async fetch_altv_cdn() {
+            altv_cdn.value = cdn_response;
+        }
+
+        async function fetch_altv_cdn() {
             const api_response = await api.fetch_or_cache(
                 import.meta.env.VERCEL_ENV == "production"
                     ? "/api/altv"
@@ -171,14 +147,43 @@ export default {
                 "altv_server_data"
             );
 
-            this.last_update = new Date().toLocaleTimeString(this.locale);
+            last_update.value = new Date().toLocaleTimeString(locale);
 
             if (api_response["active"]) {
-                this.altv_server = api_response["info"];
-                this.altv_server_active = api_response["active"];
+                altv_server.value = api_response["info"];
+                altv_server_active.value = api_response["active"];
             }
-        },
-    },
+        }
+
+        onBeforeMount(() => {
+            fetch_altv_cdn();
+            fetch_altv_server();
+        })
+
+        onMounted(() => {
+          if (update_timer == null) {
+            update_timer = setInterval(() => {
+                fetch_altv_cdn();
+                fetch_altv_server();
+            }, 120000);
+          }
+        })
+
+        onUnmounted(() => {
+          clearInterval(update_timer);
+        })
+
+        return {
+            fetch_altv_server,
+            fetch_altv_cdn,
+            altv_server_active,
+            last_update,
+            altv_cdn,
+            update_timer,
+            altv_server,
+            locale, t 
+        };
+    }
 };
 </script>
 
