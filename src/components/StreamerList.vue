@@ -4,31 +4,31 @@
     class="sort"
   >
     <button
-      :class="filter == 'viewer_high' ? 'active' : ''"
+      :class="searchfilter == 'viewer_high' ? 'active' : ''"
       @click="set_filter('viewer_high')"
     >
       {{ $t("streamer.sort.viewer_high") }}
     </button>
     <button
-      :class="filter == 'viewer_low' ? 'active' : ''"
+      :class="searchfilter == 'viewer_low' ? 'active' : ''"
       @click="set_filter('viewer_low')"
     >
       {{ $t("streamer.sort.viewer_low") }}
     </button>
     <button
-      :class="filter == 'alphabetically_az' ? 'active' : ''"
+      :class="searchfilter == 'alphabetically_az' ? 'active' : ''"
       @click="set_filter('alphabetically_az')"
     >
       {{ $t("streamer.sort.alphabetically_az") }}
     </button>
     <button
-      :class="filter == 'alphabetically_za' ? 'active' : ''"
+      :class="searchfilter == 'alphabetically_za' ? 'active' : ''"
       @click="set_filter('alphabetically_za')"
     >
       {{ $t("streamer.sort.alphabetically_za") }}
     </button>
     <button
-      :class="filter.includes('shuffle') ? 'active' : ''"
+      :class="searchfilter.includes('shuffle') ? 'active' : ''"
       @click="set_filter('shuffle')"
     >
       {{ $t("streamer.sort.shuffle") }}
@@ -74,7 +74,7 @@
   </div>
   <ul
     v-if="streamers.length > 0"
-    v-memo="[streamers, imgCacheKey, filter, searchword]"
+    v-memo="[streamers, imgCacheKey, searchfilter, searchword]"
     class="cards"
   >
     <StreamerItem
@@ -108,7 +108,7 @@
 
 <script>
 import { useI18n } from "vue-i18n";
-import { ref } from "vue";
+import { ref, onUnmounted, onUpdated, onMounted, onBeforeMount } from "vue";
 import StreamerItem from "./StreamerItem.vue";
 import api from "../mixins/api.js";
 import useDebouncedRef from './useDebouncedRef.js';
@@ -119,7 +119,7 @@ export default {
         StreamerItem,
     },
     emits: ["set_viewer_count", "set_streamer_count"],
-    setup() {
+    setup(props, context) {
         const { locale, t } = useI18n({
             inheritLocale: true,
         });
@@ -133,17 +133,126 @@ export default {
         const small_device = ref(false);
         // possible values: alphabetically_az, alphabetically_za, viewer_high, viewer_low, shuffle
         // default value: viewer_high
-        let filter = ref("viewer_high");
+        const searchfilter = ref("viewer_high");
 
         // load filter from localstorage
         try {
             const load_filter = localStorage.getItem("sort_method");
-            if (load_filter != undefined) { filter = ref(load_filter); }
+            if (load_filter != undefined) { searchfilter.value = load_filter; }
         } catch (error) {
             console.warn("localstorage error.");
         }
+
+        function window_resize() {
+            const width = window.innerWidth;
+            // const height = window.innerHeight
+
+            small_device.value = width < 742;
+            show_filters.value = !small_device.value;
+        }
+        
+        function filterObject(obj) {
+            return {
+                user_id: obj.user_id,
+                user_name: obj.user_name,
+                title: obj.title,
+                viewer_count: obj.viewer_count,
+                started_at: obj.started_at,
+                thumbnail_url: obj.thumbnail_url
+            };
+        }
+
+        async function get_streamers() {
+            const streaming_list_update = new CustomEvent('streaming-list-update', {
+              detail: {
+                message: ''
+              }
+            });
+            let api_response = await api.fetch_or_cache(
+                import.meta.env.VERCEL_ENV == "production"
+                    ? "/api/streamers"
+                    : import.meta.env.VITE_SEARCH_SERVER,
+                "streamers"
+            );
+
+            if (api_response == {}) { api_response = []; }
+
+            streamers.value = api_response.map(filterObject);
+
+            setTimeout(() => {
+              window.dispatchEvent(streaming_list_update);
+            }, 100);
+        }
+
+        // Fisher-Yates shuffle algorithm
+        function shuffleArray(array) {
+            let remainingElements = array.length;
+            // Iterate through the array from the last element to the first
+            while (remainingElements) {
+                // Pick a random element from the remaining portion of the array
+                let randId = Math.floor(Math.random() * remainingElements--);
+                // Swap the current element with the random element
+                let tmp = array[remainingElements];
+                array[remainingElements] = array[randId];
+                array[randId] = tmp;
+            }
+            return array;
+        }
+        
+        function set_filter(new_filter) {
+            if (new_filter == "shuffle") {
+                if (streamers.value.length != 0) {
+                    searchfilter.value = `shuffle-${Math.random().toString().substring(2, 3)}`;
+                }
+            } else {
+                searchfilter.value = new_filter;
+            }
+            
+        }
+
+        onBeforeMount(() => {
+            get_streamers();
+        })
+
+        onMounted(() => {
+            window_resize();
+            window.addEventListener("resize", window_resize);
+            // save selected filter on page exit
+            window.addEventListener('beforeunload', () => {
+                if (searchfilter.value.includes("shuffle")) {
+                    localStorage.setItem("sort_method", "shuffle");
+                } else {
+                    localStorage.setItem("sort_method", searchfilter.value);
+                }
+                
+            });
+            if (timer.value == null) {
+                timer.value = setInterval(() => {
+                    get_streamers();
+                    imgcachekey.value = Math.random().toString().substring(2, 8);
+                }, 300000);
+            }
+        })
+
+        onUpdated(() => {
+            // create a array with only the viewer_count
+            const viewerCount = streamers.value.map(obj => obj.viewer_count);
+            // count all viewers together
+            const totalViewerCount = viewerCount.reduce((acc, count) => acc + count, 0);
+
+            // emit the result to the App.vue component that will pass it to the Pageheader.vue
+            context.emit("set_viewer_count", totalViewerCount);
+            context.emit("set_streamer_count", streamers.value.length);
+        })
+
+        onUnmounted(() => {
+            clearInterval(timer.value);
+            window.removeEventListener("resize", window_resize);
+        })
         
         return {
+            set_filter,
+            shuffleArray,
             streamers,
             views,
             timer,
@@ -151,23 +260,22 @@ export default {
             searchword,
             show_filters,
             small_device,
-            filter,
+            searchfilter,
             locale, t
         };
     },
     computed: {
         filterstreamers() {
-            const { streamers, searchword } = this;
+            const { streamers, searchword, searchfilter } = this;
             const tmp_searchword = searchword.toLowerCase();
-            let tmp_filter = this.filter;
             const tmp_streamers = streamers.filter((stream) => (
                 stream.title.toLowerCase().includes(tmp_searchword) ||
                 stream.user_name.toLowerCase().includes(tmp_searchword)
             ));
 
-            if (tmp_filter.toLowerCase().includes("shuffle")) { tmp_filter = "shuffle"; }
+            if (searchfilter.toLowerCase().includes("shuffle")) { searchfilter = "shuffle"; }
 
-            switch (tmp_filter) {
+            switch (searchfilter) {
                 case "viewer_high":
                     return tmp_streamers.sort(function (a, b) {
                         return a["viewer_count"] - b["viewer_count"];
@@ -194,107 +302,7 @@ export default {
                     return tmp_streamers;
             }
         },
-    },
-    updated() {
-        // create a array with only the viewer_count
-        const viewerCount = this.streamers.map(obj => obj.viewer_count);
-        // count all viewers together
-        const totalViewerCount = viewerCount.reduce((acc, count) => acc + count, 0);
-
-        // emit the result to the App.vue component that will pass it to the Pageheader.vue
-        this.$emit("set_viewer_count", totalViewerCount);
-        this.$emit("set_streamer_count", this.streamers.length);
-    },
-    mounted: function () {
-        this.window_resize();
-        window.addEventListener("resize", this.window_resize);
-        // save selected filter on page exit
-        window.addEventListener('beforeunload', () => {
-            if (this.filter.includes("shuffle")) {
-                localStorage.setItem("sort_method", "shuffle");
-            } else {
-                localStorage.setItem("sort_method", this.filter);
-            }
-            
-        });
-        if (this.timer == null) {
-            this.timer = setInterval(() => {
-                this.get_streamers();
-                this.imgcachekey = Math.random().toString().substring(2, 8);
-            }, 300000);
-        }
-    },
-    beforeMount() {
-        this.get_streamers();
-    },
-    unmounted() {
-        clearInterval(this.timer);
-        window.removeEventListener("resize", this.window_resize);
-    },
-    methods: {
-        window_resize() {
-            const width = window.innerWidth;
-            // const height = window.innerHeight
-
-            this.small_device = width < 742;
-            this.show_filters = !this.small_device;
-        },
-        filterObject(obj) {
-            return {
-                user_id: obj.user_id,
-                user_name: obj.user_name,
-                title: obj.title,
-                viewer_count: obj.viewer_count,
-                started_at: obj.started_at,
-                thumbnail_url: obj.thumbnail_url
-            };
-        },
-        async get_streamers() {
-            const streaming_list_update = new CustomEvent('streaming-list-update', {
-              detail: {
-                message: ''
-              }
-            });
-            let api_response = await api.fetch_or_cache(
-                import.meta.env.VERCEL_ENV == "production"
-                    ? "/api/streamers"
-                    : import.meta.env.VITE_SEARCH_SERVER,
-                "streamers"
-            );
-
-            if (api_response == {}) { api_response = []; }
-
-            this.streamers = api_response.map(this.filterObject);
-
-            setTimeout(() => {
-              window.dispatchEvent(streaming_list_update);
-            }, 100);
-        },
-        // Fisher-Yates shuffle algorithm
-        shuffleArray(array) {
-            let remainingElements = array.length;
-            // Iterate through the array from the last element to the first
-            while (remainingElements) {
-                // Pick a random element from the remaining portion of the array
-                let randId = Math.floor(Math.random() * remainingElements--);
-                // Swap the current element with the random element
-                let tmp = array[remainingElements];
-                array[remainingElements] = array[randId];
-                array[randId] = tmp;
-            }
-            return array;
-        },
-        set_filter(filter) {
-            if (filter == "shuffle") {
-                if (this.streamers.length != 0) {
-                    this.filter = `shuffle-${Math.random().toString().substring(2, 3)}`;
-                }
-            } else {
-                this.filter = filter;
-            }
-            
-        }
-    },
+    }
 };
 </script>
 
