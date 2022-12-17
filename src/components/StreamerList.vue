@@ -79,7 +79,7 @@
   >
     <StreamerItem
       v-for="stream of filterstreamers"
-      :key="stream['user_id']"
+      :key="stream.user_id"
       :stream="stream"
       :cache-key="imgCacheKey"
     />
