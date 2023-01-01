@@ -19,7 +19,7 @@
       :class="searchfilter == 'runtime_high'|| searchfilter == 'runtime_low' ? 'active' : ''"
       @click="set_filter('runtime')"
     >
-    {{ searchfilter == 'runtime_high' ? t("sort.runtime_low"):t("sort.runtime_high") }}
+      {{ searchfilter == 'runtime_high' ? t("sort.runtime_low"):t("sort.runtime_high") }}
     </button>
     <button
       :class="searchfilter.includes('shuffle') ? 'active' : ''"
@@ -171,35 +171,35 @@ async function get_streamers() {
 
 function set_filter(new_filter) {
     switch (new_filter) {
-        case "shuffle":
-            if (streamers.value.length != 0) {
-                searchfilter.value =  `shuffle-${Math.random().toString().substring(2, 3)}`;
-            }
-            break
-        case "viewer":
-            if (searchfilter.value == "viewer_high") {
-                searchfilter.value = "viewer_low";
-            } else {
-                searchfilter.value = "viewer_high";
-            }
-            break
-        case "alphabetically":
-            if (searchfilter.value == "alphabetically_az") {
-                searchfilter.value = "alphabetically_za";
-            } else {
-                searchfilter.value = "alphabetically_az";
-            }
-            break
-        case "runtime":
-            if (searchfilter.value == "runtime_high") {
-                searchfilter.value = "runtime_low";
-            } else {
-                searchfilter.value = "runtime_high";
-            }
-            break
-        default:
-            searchfilter.value == "viewer_high"
-            break
+    case "shuffle":
+        if (streamers.value.length != 0) {
+            searchfilter.value =  `shuffle-${Math.random().toString().substring(2, 3)}`;
+        }
+        break;
+    case "viewer":
+        if (searchfilter.value == "viewer_high") {
+            searchfilter.value = "viewer_low";
+        } else {
+            searchfilter.value = "viewer_high";
+        }
+        break;
+    case "alphabetically":
+        if (searchfilter.value == "alphabetically_az") {
+            searchfilter.value = "alphabetically_za";
+        } else {
+            searchfilter.value = "alphabetically_az";
+        }
+        break;
+    case "runtime":
+        if (searchfilter.value == "runtime_high") {
+            searchfilter.value = "runtime_low";
+        } else {
+            searchfilter.value = "runtime_high";
+        }
+        break;
+    default:
+        searchfilter.value == "viewer_high";
+        break;
     }
 }
 
