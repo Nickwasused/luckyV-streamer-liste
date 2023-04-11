@@ -5,4 +5,6 @@
   X-Frame-Options: SAMEORIGIN
   Link: <https://twitch-search-server-1.nickwasused.com>; rel="preconnect", <https://api.alt-mp.com>; rel="preconnect", <https://static-cdn.jtvnw.net>; rel="preconnect"
   Cross-Origin-Embedder-Policy: require-corp; report-to="default"
+  Cross-Origin-Opener-Policy: same-origin; report-to="default"
+  Cross-Origin-Resource-Policy: same-site
   ! Access-Control-Allow-Origin
