@@ -14,7 +14,7 @@
     "@vitejs/plugin-vue": "^4.2.3",
     "sass": "^1.62.1",
     "vite": "^4.3.8",
-    "vite-plugin-pwa": "^0.14.7",
+    "vite-plugin-pwa": "^0.15.0",
     "vue": "^3.3.4",
     "vue-i18n": "^9.2.2",
     "vue-router": "^4.2.1",
