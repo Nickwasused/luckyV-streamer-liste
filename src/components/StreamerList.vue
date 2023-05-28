@@ -87,7 +87,8 @@
     v-if="filterstreamers.length > 3"
     href="#top"
     class="top"
-    aria-label="Go back to top."
+    :aria-label="t('up')"
+    :title="t('up')"
   >
     <div class="mock_button">
       <img
@@ -203,6 +204,7 @@ onMounted(() => {
     });
     if (timer.value == null) {
         timer.value = setInterval(() => {
+            refetch();
             imgcachekey.value = Math.random().toString().substring(2, 8);
         }, 300000);
     }
@@ -240,7 +242,18 @@ function shuffleArray(array) {
     return array;
 }
 
-const streamers = computed(() => result.value?.Streamers ?? [])
+const streamers = computed(() => {
+    setTimeout(() => {
+        const streaming_list_update = new CustomEvent('streaming-list-update', {
+            detail: {
+                message: ''
+            }
+        });
+        window.dispatchEvent(streaming_list_update);
+    }, 100);
+
+    return result.value?.Streamers ?? [];
+})
 
 const filterstreamers = computed(() => {
     const tmp_searchword = searchword.value.toLowerCase();
@@ -312,7 +325,8 @@ const filterstreamers = computed(() => {
             "shuffle": "Zufällig 🎲",
             "runtime_high": "Laufzeit ⌛",
             "runtime_low": "Laufzeit ⏳"
-        }
+        },
+        "up": "Zurück nach oben."
     },
     "en-US": {
         "search": "Search...",
@@ -326,7 +340,8 @@ const filterstreamers = computed(() => {
             "shuffle": "Random 🎲",
             "runtime_high": "Runtime ⌛",
             "runtime_low": "Runtime ⏳"
-        }
+        },
+        "up": "Back to top."
     }
 }
 </i18n>
