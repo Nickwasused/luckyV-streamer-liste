@@ -104,8 +104,22 @@
 import { ref, onUnmounted, onUpdated, onMounted, onBeforeMount, computed } from "vue";
 import { useI18n } from "vue-i18n";
 import StreamerItem from "./StreamerItem.vue";
-import api from "../mixins/api.js";
 import useDebouncedRef from './useDebouncedRef.js';
+import gql from 'graphql-tag'
+import { useQuery } from '@vue/apollo-composable'
+
+const STREAMERS_QUERY = gql`
+  query {
+    Streamers(title: "luckyv,lucky v") {
+      user_id
+      user_name
+      title
+      viewer_count
+      started_at
+      thumbnail_url
+    }
+  }
+`
 
 const emit = defineEmits(["set_viewer_count", "set_streamer_count"]);
 
@@ -114,7 +128,7 @@ const { t } = useI18n({
     inheritLocale: true
 });
 
-const streamers = ref([]);
+const { result, loading, error, refetch } = useQuery(STREAMERS_QUERY);
 const timer = ref(null);
 const imgCacheKey = ref(Math.random().toString().substring(2, 8));
 const searchword = useDebouncedRef("", 300);
@@ -138,34 +152,6 @@ function window_resize() {
 
     small_device.value = width < 742;
     show_filters.value = !small_device.value;
-}
-
-function filterObject(obj) {
-    return {
-        user_id: obj.user_id,
-        user_name: obj.user_name,
-        title: obj.title.replace(/^(\[LuckyV\]|\[LuckyV\]|\[LuckyV.de\]|LuckyV\.de|Lucky V|LuckyV\.de|LuckyV)( |)(💛| 💛| 💛 |)/, ""),
-        viewer_count: obj.viewer_count,
-        started_at: obj.started_at,
-        thumbnail_url: obj.thumbnail_url
-    };
-}
-
-async function get_streamers() {
-    let api_response = await api.fetch_or_cache(import.meta.env.VITE_SEARCH_SERVER, "streamers");
-
-    if (api_response == {}) { api_response = []; }
-
-    streamers.value = api_response.map(filterObject);
-
-    setTimeout(() => {
-        const streaming_list_update = new CustomEvent('streaming-list-update', {
-            detail: {
-                message: ''
-            }
-        });
-        window.dispatchEvent(streaming_list_update);
-    }, 100);
 }
 
 function set_filter(new_filter) {
@@ -202,10 +188,6 @@ function set_filter(new_filter) {
     }
 }
 
-onBeforeMount(async () => {
-    await get_streamers();
-});
-
 onMounted(() => {
     window_resize();
     window.addEventListener("resize", window_resize);
@@ -221,7 +203,6 @@ onMounted(() => {
     });
     if (timer.value == null) {
         timer.value = setInterval(() => {
-            get_streamers();
             imgcachekey.value = Math.random().toString().substring(2, 8);
         }, 300000);
     }
@@ -258,6 +239,8 @@ function shuffleArray(array) {
     }
     return array;
 }
+
+const streamers = computed(() => result.value?.Streamers ?? [])
 
 const filterstreamers = computed(() => {
     const tmp_searchword = searchword.value.toLowerCase();
