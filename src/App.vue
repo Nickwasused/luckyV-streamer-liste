@@ -1,12 +1,10 @@
 <template>
   <PageHeader
-    v-if="!loading"
-    :viewer_count="result.getViewerCount"
-    :streamer_count="result.Streamers.length"
+    :viewer_count="viewer_count"
+    :streamer_count="streamers.length"
   />
   <StreamerList
-    v-if="!loading"
-    :streamers="result.Streamers"
+    :streamers="streamers"
   />
   <div v-if="error">
     {{ error }}
@@ -14,14 +12,14 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from "vue";
+import { ref, onMounted, onUnmounted, computed } from "vue";
 import PageHeader from "./components/PageHeader.vue";
 import StreamerList from "./components/StreamerList.vue";
 import gql from 'graphql-tag';
 import { useQuery } from '@vue/apollo-composable';
 
 const timer = ref(null);
-const { result, loading, error, refetch } = useQuery(gql`
+const { result, error, refetch } = useQuery(gql`
   query {
     getViewerCount(title: "luckyv,lucky v")
     Streamers(title: "luckyv,lucky v") {
@@ -34,6 +32,9 @@ const { result, loading, error, refetch } = useQuery(gql`
     }
   }
 `);
+
+const viewer_count = computed(() => result.value?.getViewerCount ?? 0);
+const streamers = computed(() => result.value?.Streamers ?? []);
 
 onMounted(() => {
     if (timer.value == null) {
