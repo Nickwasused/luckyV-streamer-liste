@@ -1,15 +1,24 @@
 <template>
-  <PageHeader v-if="!loading" :viewer_count="result.getViewerCount" :streamer_count="result.Streamers.length" />
-  <StreamerList v-if="!loading" :streamers="result.Streamers" />
-  <div v-if="error">{{ error }}</div>
+  <PageHeader
+    v-if="!loading"
+    :viewer_count="result.getViewerCount"
+    :streamer_count="result.Streamers.length"
+  />
+  <StreamerList
+    v-if="!loading"
+    :streamers="result.Streamers"
+  />
+  <div v-if="error">
+    {{ error }}
+  </div>
 </template>
 
 <script setup>
 import { ref, onMounted, onUnmounted } from "vue";
 import PageHeader from "./components/PageHeader.vue";
 import StreamerList from "./components/StreamerList.vue";
-import gql from 'graphql-tag'
-import { useQuery } from '@vue/apollo-composable'
+import gql from 'graphql-tag';
+import { useQuery } from '@vue/apollo-composable';
 
 const timer = ref(null);
 const { result, loading, error, refetch } = useQuery(gql`
