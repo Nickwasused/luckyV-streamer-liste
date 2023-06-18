@@ -18,8 +18,8 @@ import StreamerList from "./components/StreamerList.vue";
 import { useQuery } from 'villus';
 
 const gql_error = ref(null);
-const gql_timer = ref(null);
-const QUERY = `
+const gql_timer = ref<number | null>(null);
+const QUERY: string = `
   query {
     getViewerCount(title: "luckyv,lucky v")
     Streamers(title: "luckyv,lucky v") {
@@ -42,8 +42,8 @@ onError(error => {
   gql_error.value = error;
 })
 
-const viewer_count = computed(() => data.value?.getViewerCount ?? 0);
-const streamers = computed(() => data.value?.Streamers ?? []);
+const viewer_count = computed<number>(() => data.value?.getViewerCount ?? 0);
+const streamers = computed<Array<Streamer>>(() => data.value?.Streamers ?? []);
 
 onMounted(() => {
     if (gql_timer.value == null) {
@@ -54,7 +54,9 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
-    clearInterval(gql_timer.value);
+    if (gql_timer.value) {
+      clearInterval(gql_timer.value);
+    }
 });
 </script>
 
