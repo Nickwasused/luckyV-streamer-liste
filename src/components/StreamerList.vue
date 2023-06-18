@@ -101,7 +101,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onUnmounted, onMounted, computed, toRefs } from "vue";
+import { ref, onUnmounted, onMounted, computed, toRefs, PropType } from "vue";
 import { useI18n } from "vue-i18n";
 import StreamerItem from "./StreamerItem.vue";
 import useDebouncedRef from './useDebouncedRef.js';

@@ -7,12 +7,12 @@
         <h1
           :title="
             t('tooltips.streamer', {
-              streamer_count: streamer_count,
+              streamer_count: streamerCount,
             })
           "
         >
           {{
-            t("streamer_head", { count: streamer_count })
+            t("streamer_head", { count: streamerCount })
           }}
         </h1>
       </td>
@@ -79,9 +79,9 @@
         }}
       </td>
     </tr>
-    <tr :title="t('tooltips.viewer', { viewer: viewer_count })">
+    <tr :title="t('tooltips.viewer', { viewer: viewerCount })">
       <td>{{ t("viewers_head") }}</td>
-      <td>{{ viewer_count }}</td>
+      <td>{{ viewerCount }}</td>
     </tr>
     <tr :title="t('tooltips.refresh')">
       <td>{{ t("last_refresh_head") }}</td>
@@ -101,8 +101,14 @@ const { locale, t } = useI18n({
 });
 
 const props = defineProps({
-    streamer_count: Number,
-    viewer_count: Number
+    streamerCount: {
+        type: Number,
+        required: true
+    },
+    viewerCount: {
+        type: Number,
+        required: true
+    }
 });
 
 const altv_server_active = ref<boolean>(false);
@@ -134,9 +140,9 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
-  if (update_timer.value) {
-    clearInterval(update_timer.value);
-  }
+    if (update_timer.value) {
+        clearInterval(update_timer.value);
+    }
 });
 </script>
 

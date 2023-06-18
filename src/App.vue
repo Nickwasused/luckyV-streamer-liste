@@ -1,7 +1,7 @@
 <template>
   <PageHeader
-    :viewer_count="viewer_count"
-    :streamer_count="streamers.length"
+    :viewer-count="viewer_count"
+    :streamer-count="streamers.length"
   />
   <StreamerList
     :streamers="streamers"
@@ -19,8 +19,8 @@ import { useQuery } from 'villus';
 
 const gql_error = ref(null);
 const gql_timer = ref<number | null>(null);
-const QUERY: string = `
-  query {
+const QUERY = `
+query {
     getViewerCount(title: "luckyv,lucky v")
     Streamers(title: "luckyv,lucky v") {
       user_id
@@ -34,13 +34,13 @@ const QUERY: string = `
 `;
 
 const { data, execute, onError } = useQuery({
-  query: QUERY,
+    query: QUERY,
 });
 
 onError(error => {
-  console.error(error);
-  gql_error.value = error;
-})
+    console.error(error);
+    gql_error.value = error;
+});
 
 const viewer_count = computed<number>(() => data.value?.getViewerCount ?? 0);
 const streamers = computed<Array<Streamer>>(() => data.value?.Streamers ?? []);
@@ -55,7 +55,7 @@ onMounted(() => {
 
 onUnmounted(() => {
     if (gql_timer.value) {
-      clearInterval(gql_timer.value);
+        clearInterval(gql_timer.value);
     }
 });
 </script>
