@@ -100,7 +100,7 @@
   </a>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, onUnmounted, onMounted, computed, toRefs } from "vue";
 import { useI18n } from "vue-i18n";
 import StreamerItem from "./StreamerItem.vue";
@@ -112,18 +112,21 @@ const { t } = useI18n({
 });
 
 const props = defineProps({
-    streamers: Array
+    streamers: {
+        type: Array<Streamer>,
+        required: true
+    }
 });
 
 const { streamers } = toRefs(props);
 
-const imgCacheKey = ref(Math.random().toString().substring(2, 8));
-const searchword = useDebouncedRef("", 300);
-const show_filters = ref(true);
-const small_device = ref(false);
+const imgCacheKey = ref<string>(Math.random().toString().substring(2, 8));
+const searchword = useDebouncedRef("", 300, false);
+const show_filters = ref<boolean>(true);
+const small_device = ref<boolean>(false);
 // possible values: alphabetically_az, alphabetically_za, viewer_high, viewer_low, shuffle, runtime_high, runtime_low
 // default value: viewer_high
-const searchfilter = ref("viewer_high");
+const searchfilter = ref<string>("viewer_high");
 
 // load filter from localstorage
 try {
@@ -141,7 +144,7 @@ function window_resize() {
     show_filters.value = !small_device.value;
 }
 
-function set_filter(new_filter) {
+function set_filter(new_filter: string) {
     switch (new_filter) {
     case "shuffle":
         if (streamers.value.length != 0) {
@@ -195,7 +198,7 @@ onUnmounted(() => {
 });
 
 // Fisher-Yates shuffle algorithm
-function shuffleArray(array) {
+function shuffleArray(array: Array<Streamer>) {
     let remainingElements = array.length;
     // Iterate through the array from the last element to the first
     while (remainingElements) {
@@ -209,13 +212,13 @@ function shuffleArray(array) {
     return array;
 }
 
-const filterstreamers = computed(() => {
+const filterstreamers = computed<Array<Streamer>>(() => {
     const tmp_searchword = searchword.value.toLowerCase();
     let local_filter = searchfilter.value;
 
-    const tmp_streamers = streamers.value.filter((stream) => (
-        stream.title.toLowerCase().includes(tmp_searchword) ||
-        stream.user_name.toLowerCase().includes(tmp_searchword)
+    const tmp_streamers = streamers.value.filter((streamer: Streamer) => (
+        streamer.title.toLowerCase().includes(tmp_searchword) ||
+        streamer.user_name.toLowerCase().includes(tmp_searchword)
     ));
 
     if (local_filter.toLowerCase().includes("shuffle")) { local_filter = "shuffle"; }

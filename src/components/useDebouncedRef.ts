@@ -3,7 +3,7 @@ import { ref, customRef } from 'vue';
 // https://theroadtoenterprise.com/blog/how-to-create-a-debounced-ref-in-vue-3-using-composition-api
 
 const debounce = (fn, delay = 0, immediate = false) => {
-    let timeout;
+    let timeout: number;
     return (...args) => {
         if (immediate && !timeout) fn(...args);
         clearTimeout(timeout);

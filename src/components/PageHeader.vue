@@ -20,7 +20,7 @@
   </table>
   <table class="info_table">
     <tr
-      :title="t('tooltips.altv_version', { version: altv_server.version })"
+      :title="t('tooltips.altv_version', { version: altv_server ? altv_server.version : '' })"
     >
       <td>
         <a
@@ -34,7 +34,7 @@
       </td>
       <td>
         {{
-          altv_server_active
+          altv_server
             ? altv_server.version
             : "0.0"
         }}
@@ -49,7 +49,7 @@
     >
       <td>
         <a
-          :href="`https://api.alt-mp.com/server/${altv_server['id']}`"
+          :href="`https://api.alt-mp.com/server/${altv_server ? altv_server['id'] : ''}`"
           rel="noopener noreferrer"
           referrerpolicy="no-referrer"
           target="_blank"
@@ -57,11 +57,11 @@
           {{ t("game_server_head") }}
         </a>
       </td>
-      <td>{{ altv_server_active ? "Online ✔️" : "Offline ❌" }}</td>
+      <td>{{ altv_server ? "Online ✔️" : "Offline ❌" }}</td>
     </tr>
     <tr
       :title="
-        altv_server_active
+        altv_server
           ? t('tooltips.players', {
             player: altv_server.players,
           })
@@ -71,7 +71,7 @@
       <td>{{ t("players_online_head") }}</td>
       <td>
         {{
-          altv_server_active
+          altv_server
             ? altv_server["players"] +
               "/" +
               altv_server["maxPlayers"]
@@ -90,7 +90,7 @@
   </table>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { onMounted, onUnmounted, onBeforeMount, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import api from "../mixins/api.js";
@@ -105,10 +105,10 @@ const props = defineProps({
     viewer_count: Number
 });
 
-const altv_server_active = ref(false);
-const last_update = ref(t("last_update_never"));
-const update_timer = ref(null);
-const altv_server = ref({});
+const altv_server_active = ref<boolean>(false);
+const last_update = ref<string>(t("last_update_never"));
+const update_timer = ref<null|number>(null);
+const altv_server = ref<Server | null>(null);
 
 async function fetch_altv_server() {
     const api_response = await api.fetch_or_cache(`https://api.alt-mp.com/server/${import.meta.env.VITE_ALTV_SERVER_ID}`, "altv_server_data");
@@ -134,7 +134,9 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
+  if (update_timer.value) {
     clearInterval(update_timer.value);
+  }
 });
 </script>
 

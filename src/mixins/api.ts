@@ -1,5 +1,5 @@
 const api = {
-    async fetch_or_cache(url, key, minuets = 2) {
+    async fetch_or_cache(url: string, key: string, minuets: number = 2) {
         // we want to fetch data either from localstorage or from a remote server with a certain cache that we can set ourself e.g. for the alt:V CDN data
         let now = new Date();
         let api_data;
