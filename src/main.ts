@@ -29,6 +29,6 @@ const i18n = VueI18n.createI18n({
 });
 
 app.directive("lazyload", LazyLoadDirective);
-app.use(client)
+app.use(client);
 app.use(i18n);
 app.mount("#app");
