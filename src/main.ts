@@ -1,7 +1,6 @@
 import { createApp } from "vue"
 import { createClient } from "villus"
 import App from "./App.vue"
-import LazyLoadDirective from "./directives/LazyLoadDirective.js"
 import { registerSW } from "virtual:pwa-register"
 import * as VueI18n from "vue-i18n"
 
@@ -28,7 +27,6 @@ const i18n = VueI18n.createI18n({
     globalInjection: false,
 })
 
-app.directive("lazyload", LazyLoadDirective)
 app.use(client)
 app.use(i18n)
 app.mount("#app")
