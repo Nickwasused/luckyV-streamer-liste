@@ -1,10 +1,12 @@
 <template>
     <div class="card-image">
         <img
-            loading="lazy"
+            v-lazyload
             width="640px"
             height="340px"
-            :srcset="
+            :src="placeholder"
+            srcset=""
+            :data-srcset="
                 `${thumbnailUrl
                     .replace('{width}', '320')
                     .replace('{height}', '180')}?cache-key=${cacheKey} 320w, ` +
@@ -33,6 +35,7 @@
 </template>
 
 <script setup lang="ts">
+import placeholder from '@/assets/img/placeholder.webp'
 import external_icon from '@/assets/img/external.svg'
 import twitch_icon from '@/assets/img/external.svg'
 
