@@ -33,7 +33,7 @@
                                         user: stream.user_name,
                                         time: new Date(
                                             stream.started_at
-                                        ).toLocaleTimeString(),
+                                        ),
                                         total_time: calculate_time,
                                     })
                                 "
