@@ -17,15 +17,22 @@
         overflow: hidden;
         transition: all 0.3s linear;
 
-        &:hover {
-            color: white;
-            background-color: black;
-
-            .card-image .external {
-                display: inline;
+        @media (hover: hover) {
+            &:hover {
+                color: white;
+                background-color: black;
+    
+                .card-image .external {
+                    display: inline;
+                }
             }
         }
 
+        .card-image {
+            min-height: 65%;
+            min-width: 100%;
+        }
+        
         .card-content {
             display: flex;
             flex-grow: 1;
@@ -37,6 +44,8 @@
                 flex: 1 1 auto;
                 font-size: 0.875rem;
                 margin-bottom: 1rem;
+                overflow-wrap: break-word;
+                min-width: 0;
 
                 .card-streamer-table {
                     width: 80%;
@@ -51,7 +60,6 @@
 
                 .card-text-item {
                     font-size: 1.2em;
-                    margin-top: 0px;
                 }
             }
         }
@@ -74,9 +82,12 @@
     .cards-list-item .card-item {
         transition: none;
 
-        &:hover {
-            color: black;
-            background-color: #fcd401;
+        @media (hover: hover) {
+            &:hover {
+                color: black;
+                background-color: #fcd401;
+            } 
         }
+        
     }
 }
