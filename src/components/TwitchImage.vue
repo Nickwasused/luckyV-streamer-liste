@@ -37,7 +37,7 @@
 <script setup lang="ts">
 import external_icon from '@/assets/img/external.svg'
 import twitch_icon from '@/assets/img/twitch.svg'
-import placeholder from '@/assets/img/placeholder.webp'
+import placeholder from '@/assets/img/placeholder.svg'
 
 const props = defineProps({
     thumbnailUrl: {
