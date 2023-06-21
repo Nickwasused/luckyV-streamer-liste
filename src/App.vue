@@ -19,8 +19,8 @@ const gql_error = ref(null)
 const gql_timer = ref<number | null>(null)
 const QUERY = `
 query {
-    getViewerCount(title: "a")
-    Streamers(title: "a") {
+    getViewerCount(title: "luckyv,lucky v")
+    Streamers(title: "luckyv,lucky v") {
       user_id
       user_name
       title
