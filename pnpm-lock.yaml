@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 dependencies:
   '@intlify/unplugin-vue-i18n':
     specifier: ^0.11.0
@@ -8,8 +12,8 @@ dependencies:
     specifier: ^4.2.3
     version: 4.2.3(vite@4.3.9)(vue@3.3.4)
   sass:
-    specifier: ^1.63.4
-    version: 1.63.4
+    specifier: ^1.63.6
+    version: 1.63.6
   typescript:
     specifier: ^5.1.3
     version: 5.1.3
@@ -18,7 +22,7 @@ dependencies:
     version: 3.1.0(graphql@16.6.0)(vue@3.3.4)
   vite:
     specifier: ^4.3.9
-    version: 4.3.9(sass@1.63.4)
+    version: 4.3.9(sass@1.63.6)
   vite-plugin-pwa:
     specifier: ^0.16.4
     version: 0.16.4(vite@4.3.9)(workbox-build@7.0.0)(workbox-window@7.0.0)
@@ -1744,7 +1748,7 @@ packages:
       vite: ^4.0.0
       vue: ^3.2.25
     dependencies:
-      vite: 4.3.9(sass@1.63.4)
+      vite: 4.3.9(sass@1.63.6)
       vue: 3.3.4
     dev: false
 
@@ -3155,8 +3159,8 @@ packages:
       is-regex: 1.1.4
     dev: false
 
-  /sass@1.63.4:
-    resolution: {integrity: sha512-Sx/+weUmK+oiIlI+9sdD0wZHsqpbgQg8wSwSnGBjwb5GwqFhYNwwnI+UWZtLjKvKyFlKkatRK235qQ3mokyPoQ==}
+  /sass@1.63.6:
+    resolution: {integrity: sha512-MJuxGMHzaOW7ipp+1KdELtqKbfAWbH7OLIdoSMnVe3EXPMTmxTmlaZDCTsgIpPCs3w99lLo9/zDKkOrJuT5byw==}
     engines: {node: '>=14.0.0'}
     hasBin: true
     dependencies:
@@ -3485,14 +3489,14 @@ packages:
       debug: 4.3.4
       fast-glob: 3.2.12
       pretty-bytes: 6.1.0
-      vite: 4.3.9(sass@1.63.4)
+      vite: 4.3.9(sass@1.63.6)
       workbox-build: 7.0.0
       workbox-window: 7.0.0
     transitivePeerDependencies:
       - supports-color
     dev: false
 
-  /vite@4.3.9(sass@1.63.4):
+  /vite@4.3.9(sass@1.63.6):
     resolution: {integrity: sha512-qsTNZjO9NoJNW7KnOrgYwczm0WctJ8m/yqYAMAK9Lxt4SoySUfS5S8ia9K7JHpa3KEeMfyF8LoJ3c5NeBJy6pg==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
@@ -3520,7 +3524,7 @@ packages:
       esbuild: 0.17.19
       postcss: 8.4.24
       rollup: 3.25.1
-      sass: 1.63.4
+      sass: 1.63.6
     optionalDependencies:
       fsevents: 2.3.2
     dev: false
