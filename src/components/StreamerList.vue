@@ -72,11 +72,7 @@
     >
         <input v-model="searchword" type="text" :placeholder="t('search')" />
         <div class="clear_input">
-            <img
-                alt="clear search"
-                :src="x_icon"
-                @click="searchword = ''"
-            />
+            <img alt="clear search" :src="x_icon" @click="searchword = ''" />
         </div>
     </div>
     <ul v-if="streamers.length > 0" class="cards">
@@ -100,12 +96,7 @@
         :title="t('up')"
     >
         <div class="mock_button">
-            <img
-                alt=""
-                width="66"
-                height="66"
-                :src="up_icon"
-            />
+            <img alt="" width="66" height="66" :src="up_icon" />
         </div>
     </a>
 </template>
@@ -115,8 +106,8 @@ import { ref, onUnmounted, onMounted, computed, toRefs, PropType } from "vue"
 import { useI18n } from "vue-i18n"
 import StreamerItem from "./StreamerItem.vue"
 import useDebouncedRef from "./useDebouncedRef.js"
-import x_icon from '@/assets/img/x.svg'
-import up_icon from '@/assets/img/up.svg'
+import x_icon from "@/assets/img/x.svg"
+import up_icon from "@/assets/img/up.svg"
 
 const { t } = useI18n({
     useScope: "local",
@@ -194,25 +185,24 @@ function window_resize(skip_delay: boolean = false) {
         show_filters.value = !small_device.value
     } else {
         if (!resize_timeout.value) {
-            resize_timeout.value = setTimeout(function() {
+            resize_timeout.value = setTimeout(function () {
                 const width = window.innerWidth
                 small_device.value = width < 742
                 show_filters.value = !small_device.value
                 if (resize_timeout.value) {
-                    clearTimeout(resize_timeout.value);
-                    resize_timeout.value = null;
+                    clearTimeout(resize_timeout.value)
+                    resize_timeout.value = null
                 }
             }, 500)
         }
     }
-    
 }
 
 onMounted(() => {
     window_resize(true)
-    window.addEventListener("resize", function() {
-        window_resize(false);
-    });
+    window.addEventListener("resize", function () {
+        window_resize(false)
+    })
 
     // save selected filter on page exit
     window.addEventListener("beforeunload", () => {
@@ -227,7 +217,7 @@ onMounted(() => {
 onUnmounted(() => {
     window.removeEventListener("resize", window_resize)
     if (resize_timeout.value) {
-        clearTimeout(resize_timeout.value);
+        clearTimeout(resize_timeout.value)
     }
 })
 

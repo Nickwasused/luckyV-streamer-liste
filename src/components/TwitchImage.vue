@@ -24,20 +24,16 @@
         />
         <div v-once class="card-text-block">
             {{ userName }}
-            <img
-                class="twitch"
-                alt="twitch logo"
-                :src="twitch_icon"
-            />
+            <img class="twitch" alt="twitch logo" :src="twitch_icon" />
         </div>
         <img class="external" :src="external_icon" />
     </div>
 </template>
 
 <script setup lang="ts">
-import external_icon from '@/assets/img/external.svg'
-import twitch_icon from '@/assets/img/twitch.svg'
-import placeholder from '@/assets/img/placeholder.webp'
+import external_icon from "@/assets/img/external.svg"
+import twitch_icon from "@/assets/img/twitch.svg"
+import placeholder from "@/assets/img/placeholder.webp"
 
 const props = defineProps({
     thumbnailUrl: {
