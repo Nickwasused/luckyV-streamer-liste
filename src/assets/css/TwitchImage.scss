@@ -19,7 +19,7 @@
     }
 
     .external {
-        display: none;
+        visibility: hidden;
         position: absolute;
         top: 1%;
         right: 2%;
@@ -27,13 +27,12 @@
         height: 20%;
         filter: invert(100%);
     }
-}
 
-.card-item {
+    // leave this here as moving it into external will not work
     @media (hover: hover) {
         &:hover {
-            .card-image .external {
-                display: inline;
+            .external {
+                visibility: visible;
             }
         }
     }
