@@ -215,7 +215,9 @@ onMounted(() => {
 })
 
 onUnmounted(() => {
-    window.removeEventListener("resize", window_resize)
+    window.removeEventListener("resize", function () {
+        window_resize(false)
+    })
     if (resize_timeout.value) {
         clearTimeout(resize_timeout.value)
     }
