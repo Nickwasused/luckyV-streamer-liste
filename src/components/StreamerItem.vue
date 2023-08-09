@@ -1,50 +1,41 @@
 <template>
-    <li class="cards-list-item">
-        <a
-            :href="`https://twitch.tv/${stream.user_name}`"
-            target="_blank"
-            rel="noopener noreferrer"
-            referrerpolicy="no-referrer"
-        >
-            <div class="card-item">
-                <TwitchImage
-                    :thumbnail-url="stream.thumbnail_url"
-                    :user-name="stream.user_name"
-                    :cache-key="cacheKey"
-                />
-                <div class="card-content">
-                    <p class="card-text-item">{{ stream.title }}</p>
-                    <table class="card-streamer-table">
-                        <tr
-                            :title="
-                                t('tooltips.viewer', {
-                                    user: stream.user_name,
-                                    viewer: stream.viewer_count,
-                                })
-                            "
-                        >
-                            <td>{{ t("viewer_count") }}</td>
-                            <td>{{ stream.viewer_count }}</td>
-                        </tr>
-                        <tr
-                            :title="
-                                t('tooltips.live_since', {
-                                    user: stream.user_name,
-                                    time: new Date(
-                                        stream.started_at
-                                    ).toLocaleDateString(),
-                                    total_time: calculate_time,
-                                })
-                            "
-                        >
-                            <td>{{ t("live_since") }}</td>
-                            <td>{{ calculate_time }}</td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-        </a>
-    </li>
+    <div class="card-item">
+        <TwitchImage
+            :thumbnail-url="stream.thumbnail_url"
+            :user-name="stream.user_name"
+            :cache-key="cacheKey"
+        />
+        <div class="card-content">
+            <p class="card-text-item">{{ stream.title }}</p>
+            <table class="card-streamer-table">
+                <tr
+                    :title="
+                        t('tooltips.viewer', {
+                            user: stream.user_name,
+                            viewer: stream.viewer_count,
+                        })
+                    "
+                >
+                    <td>{{ t("viewer_count") }}</td>
+                    <td>{{ stream.viewer_count }}</td>
+                </tr>
+                <tr
+                    :title="
+                        t('tooltips.live_since', {
+                            user: stream.user_name,
+                            time: new Date(
+                                stream.started_at
+                            ).toLocaleDateString(),
+                            total_time: calculate_time,
+                        })
+                    "
+                >
+                    <td>{{ t("live_since") }}</td>
+                    <td>{{ calculate_time }}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
 </template>
 
 <script setup lang="ts">

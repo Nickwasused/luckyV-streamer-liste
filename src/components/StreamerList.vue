@@ -75,14 +75,14 @@
             <img alt="clear search" :src="x_icon" @click="searchword = ''" />
         </div>
     </div>
-    <ul v-if="streamers.length > 0" class="cards">
+    <div v-if="streamers.length > 0" class="cards">
         <StreamerItem
             v-for="stream of filterstreamers"
             :key="stream.user_id"
             :stream="stream"
             :cache-key="imgCacheKey"
         />
-    </ul>
+    </div>
     <div v-if="streamers.length <= 0">
         <h1 class="nolive">
             {{ t("nolive") }}
