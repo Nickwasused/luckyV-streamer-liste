@@ -1,5 +1,5 @@
 <template>
-    <div class="card-item">
+    <div class="card-item" @click="open_url">
         <TwitchImage
             :thumbnail-url="stream.thumbnail_url"
             :user-name="stream.user_name"
@@ -39,7 +39,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue"
+import { computed, ref } from "vue"
 import { useI18n } from "vue-i18n"
 import TwitchImage from "./TwitchImage.vue"
 
@@ -67,6 +67,10 @@ const { t } = useI18n({
     useScope: "local",
     inheritLocale: true,
 })
+
+function open_url() {
+    window.open(`https://twitch.tv/${props.stream.user_name}`, "_blank");
+}
 
 const calculate_time = computed(() => {
     // Stream runtime calculation
