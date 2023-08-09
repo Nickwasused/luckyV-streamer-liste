@@ -1,6 +1,7 @@
 api/
 vue.config.js
 vite.config.js
+.env
 
 # Logs
 logs
