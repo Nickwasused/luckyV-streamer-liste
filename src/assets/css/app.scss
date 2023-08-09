@@ -11,6 +11,14 @@ html {
     scrollbar-gutter: stable;
 }
 
+body {
+    margin: 0;
+}
+
+*, ::before, ::after {
+    box-sizing: border-box;
+}
+
 @font-face {
     font-family: "Courgette";
     font-style: normal;
