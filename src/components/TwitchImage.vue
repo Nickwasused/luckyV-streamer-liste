@@ -3,8 +3,6 @@
         <img
             class="w-full h-full"
             v-lazyload
-            width="640px"
-            height="340px"
             :src="placeholder"
             srcset=""
             :data-srcset="

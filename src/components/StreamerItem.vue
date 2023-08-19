@@ -1,14 +1,15 @@
 <template>
-    <div class="card-item" @click="open_url">
+    <div class="cardsize m-4 bg-luckyv overflow-hidden text-black shadow-xl rounded-b-lg hover:text-white hover:bg-black hover:cursor-pointer" @click="open_url">
         <TwitchImage
             :thumbnail-url="stream.thumbnail_url"
             :user-name="stream.user_name"
             :cache-key="cacheKey"
         />
-        <div class="card-content">
-            <p class="card-text-item">{{ stream.title }}</p>
-            <table class="card-streamer-table">
+        <div class="px-4 text-sm mb-4">
+            <p class="text-xl pt-2">{{ stream.title }}</p>
+            <table class="w-80 text-base">
                 <tr
+                    class="w-100"
                     :title="
                         t('tooltips.viewer', {
                             user: stream.user_name,
@@ -86,10 +87,6 @@ const calculate_time = computed(() => {
     return utcdate
 })
 </script>
-
-<style scoped lang="scss">
-@import "../assets/css/StreamerItem.scss";
-</style>
 
 <i18n lang="json">
 {
