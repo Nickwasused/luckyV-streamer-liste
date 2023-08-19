@@ -1,6 +1,6 @@
 <template>
     <div
-        class="cardsize m-4 bg-luckyv overflow-hidden text-black shadow-xl rounded-b-lg hover:text-white hover:bg-black hover:cursor-pointer"
+        class="cardsize m-2 sm:m-4 bg-luckyv overflow-hidden text-black shadow-xl rounded-b-lg hover:text-white hover:bg-black hover:cursor-pointer"
         @click="open_url"
     >
         <TwitchImage

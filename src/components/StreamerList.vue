@@ -90,7 +90,7 @@
     </div>
     <div
         v-if="streamers.length > 0"
-        class="flex flex-row flex-wrap list-none m-auto max-w-[80%]"
+        class="flex flex-row flex-wrap list-none m-auto max-w-[95%] sm:max-w-[80%]"
     >
         <StreamerItem
             v-for="stream of filterstreamers"

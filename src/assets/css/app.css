@@ -15,13 +15,13 @@ html {
     font-display: swap;
 }
 
-@media (min-width: 40rem) {
+@media (min-width: 640px) {
     .cardsize {
         flex-basis: calc(50% - 2rem);
     }
 }
 
-@media (min-width: 56rem) {
+@media (min-width: 768px) {
     .cardsize {
         flex-basis: calc(33.33% - 2rem);
     }
