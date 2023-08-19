@@ -6,7 +6,7 @@ import VueI18nPlugin from "@intlify/unplugin-vue-i18n/vite"
 
 const env = loadEnv("production", process.cwd(), "")
 let build_source_map = true
-if (env.VERCEL_ENV == "production") {
+if (env.CF_PAGES == "1") {
     build_source_map = false
 }
 
