@@ -1,9 +1,10 @@
 <template>
-    <div class="card-image">
+    <div
+        class="bg-center bg-no-repeat bg-cover contrast-75 overflow-hidden relative transition-all"
+    >
         <img
+            class="w-full h-full"
             v-lazyload
-            width="640px"
-            height="340px"
             :src="placeholder"
             srcset=""
             :data-srcset="
@@ -22,11 +23,21 @@
             crossorigin="anonymous"
             sizes="(min-width: 1400px) 100vw, (min-width: 1200px) 30vw, (min-width: 895px) 20vw, (min-width: 740px) 50vw, (min-width: 640px) 30vw, 100vw"
         />
-        <div v-once class="card-text-block">
+        <div
+            v-once
+            class="absolute bottom-5 right-5 bg-black px-2 text-2xl text-white"
+        >
             {{ userName }}
-            <img class="twitch" alt="twitch logo" :src="twitch_icon" />
+            <img
+                class="w-[1em] h-100 invert inline"
+                alt="twitch logo"
+                :src="twitch_icon"
+            />
         </div>
-        <img class="external" :src="external_icon" />
+        <img
+            class="hidden absolute top-1 right-2 w-10 h-20 invert hover:visible"
+            :src="external_icon"
+        />
     </div>
 </template>
 
@@ -50,7 +61,3 @@ const props = defineProps({
     },
 })
 </script>
-
-<style scoped lang="scss">
-@import "../assets/css/TwitchImage.scss";
-</style>

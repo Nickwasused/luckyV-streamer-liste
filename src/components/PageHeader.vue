@@ -1,5 +1,5 @@
 <template>
-    <table class="stream_count_table">
+    <table class="lg:w-[80%] w-[95%] font-[Courgette]">
         <tr>
             <td>
                 <h1
@@ -14,7 +14,7 @@
             </td>
         </tr>
     </table>
-    <table class="info_table">
+    <table class="lg:w-[60%] w-[95%]">
         <tr
             :title="
                 t('tooltips.altv_version', {
@@ -88,6 +88,25 @@
     </table>
 </template>
 
+<style lang="css" scoped>
+table {
+    @apply mt-1 mx-auto border-collapse shadow-xl;
+}
+
+th,
+td {
+    @apply p-3;
+}
+
+tr:nth-of-type(even) {
+    @apply bg-[#2e2e2e];
+}
+
+h1 {
+    @apply m-[2%] lg:text-6xl text-4xl text-center;
+}
+</style>
+
 <script setup lang="ts">
 import { onMounted, onUnmounted, onBeforeMount, ref } from "vue"
 import { useI18n } from "vue-i18n"
@@ -146,10 +165,6 @@ onUnmounted(() => {
     }
 })
 </script>
-
-<style scoped lang="scss">
-@import "../assets/css/PageHeader.scss";
-</style>
 
 <i18n lang="json">
 {

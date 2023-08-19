@@ -1,0 +1,32 @@
+html {
+    word-wrap: break-word;
+    background-color: #343a40;
+    color: white;
+    overflow-y: auto;
+    scrollbar-gutter: stable;
+}
+
+@font-face {
+    font-family: "Courgette";
+    font-style: normal;
+    font-weight: 400;
+    unicode-range: U+000-5FF;
+    src: url("@/assets/fonts/Courgette-Regular-min.woff2") format("woff2");
+    font-display: swap;
+}
+
+@media (min-width: 40rem) {
+    .cardsize {
+        flex-basis: calc(50% - 2rem);
+    }
+}
+
+@media (min-width: 56rem) {
+    .cardsize {
+        flex-basis: calc(33.33% - 2rem);
+    }
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
