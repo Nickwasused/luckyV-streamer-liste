@@ -1,5 +1,5 @@
 <template>
-    <table class="lg:w-[80%] w-[95%]">
+    <table class="lg:w-[80%] w-[95%] font-[Courgette]">
         <tr>
             <td>
                 <h1
