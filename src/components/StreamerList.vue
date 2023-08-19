@@ -70,7 +70,7 @@
         class="flex w-[80%] m-auto p-1 text-4xl border-[1px] rounded bg-[#333] border-[#1a1a1a]"
         :title="t('searchinfo')"
     >
-        <input class="w-[95%] p-1 bg-[#333] font-[Courgette] outline-0" v-model="searchword" type="text" :placeholder="t('search')" />
+        <input class="w-[95%] p-3 bg-[#333] font-[Courgette] focus:outline-none text-[#dadada]" v-model="searchword" type="text" :placeholder="t('search')" />
         <div class="transition h-16 w-16 inline invert-0 hover:invert">
             <img class="w-full h-full" alt="clear search" :src="x_icon" @click="searchword = ''" />
         </div>
