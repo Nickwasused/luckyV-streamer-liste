@@ -112,7 +112,7 @@
         :title="t('up')"
     >
         <div
-            class="w-[3%] h-auto bg-[#fcd401] rounded-full fixed bottom-2 right-2"
+            class="w-[3%] h-auto bg-[#fcd401] rounded-full fixed bottom-2 right-2 invisible md:visible"
         >
             <img
                 class="w-full block m-auto invert-0 transition-all hover:invert"
