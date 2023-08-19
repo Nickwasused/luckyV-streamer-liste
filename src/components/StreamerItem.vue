@@ -1,5 +1,8 @@
 <template>
-    <div class="cardsize m-4 bg-luckyv overflow-hidden text-black shadow-xl rounded-b-lg hover:text-white hover:bg-black hover:cursor-pointer" @click="open_url">
+    <div
+        class="cardsize m-4 bg-luckyv overflow-hidden text-black shadow-xl rounded-b-lg hover:text-white hover:bg-black hover:cursor-pointer"
+        @click="open_url"
+    >
         <TwitchImage
             :thumbnail-url="stream.thumbnail_url"
             :user-name="stream.user_name"
@@ -70,7 +73,7 @@ const { t } = useI18n({
 })
 
 function open_url() {
-    window.open(`https://twitch.tv/${props.stream.user_name}`, "_blank");
+    window.open(`https://twitch.tv/${props.stream.user_name}`, "_blank")
 }
 
 const calculate_time = computed(() => {

@@ -1,5 +1,8 @@
 <template>
-    <div v-if="show_filters" class="flex flex-col justify-center mx-auto w-auto md:flex-row">
+    <div
+        v-if="show_filters"
+        class="flex flex-col justify-center mx-auto w-auto md:flex-row"
+    >
         <button
             :class="
                 searchfilter == 'viewer_high' || searchfilter == 'viewer_low'
@@ -70,12 +73,25 @@
         class="flex w-[80%] m-auto p-1 text-4xl border-[1px] rounded bg-[#333] border-[#1a1a1a]"
         :title="t('searchinfo')"
     >
-        <input class="w-[95%] p-3 bg-[#333] font-[Courgette] focus:outline-none text-[#dadada]" v-model="searchword" type="text" :placeholder="t('search')" />
+        <input
+            class="w-[95%] p-3 bg-[#333] font-[Courgette] focus:outline-none text-[#dadada]"
+            v-model="searchword"
+            type="text"
+            :placeholder="t('search')"
+        />
         <div class="transition h-16 w-16 inline invert-0 hover:invert">
-            <img class="w-full h-full" alt="clear search" :src="x_icon" @click="searchword = ''" />
+            <img
+                class="w-full h-full"
+                alt="clear search"
+                :src="x_icon"
+                @click="searchword = ''"
+            />
         </div>
     </div>
-    <div v-if="streamers.length > 0" class="flex flex-row flex-wrap list-none m-auto max-w-[80%]">
+    <div
+        v-if="streamers.length > 0"
+        class="flex flex-row flex-wrap list-none m-auto max-w-[80%]"
+    >
         <StreamerItem
             v-for="stream of filterstreamers"
             :key="stream.user_id"
@@ -95,19 +111,27 @@
         :aria-label="t('up')"
         :title="t('up')"
     >
-        <div class="w-[3%] h-auto bg-[#fcd401] rounded-full fixed bottom-2 right-2">
-            <img class="w-full block m-auto invert-0 transition-all hover:invert" alt="" width="66" height="66" :src="up_icon" />
+        <div
+            class="w-[3%] h-auto bg-[#fcd401] rounded-full fixed bottom-2 right-2"
+        >
+            <img
+                class="w-full block m-auto invert-0 transition-all hover:invert"
+                alt=""
+                width="66"
+                height="66"
+                :src="up_icon"
+            />
         </div>
     </a>
 </template>
 
 <style lang="css" scoped>
 button {
-    @apply transition-all flex-col appearance-none bg-luckyv text-black cursor-pointer text-center m-[1%] px-4 border-8 rounded border-luckyv hover:bg-black hover:text-white hover:border-black
+    @apply transition-all flex-col appearance-none bg-luckyv text-black cursor-pointer text-center m-[1%] px-4 border-8 rounded border-luckyv hover:bg-black hover:text-white hover:border-black;
 }
 
 .active_button {
-    @apply border-black bg-black text-white
+    @apply border-black bg-black text-white;
 }
 </style>
 
