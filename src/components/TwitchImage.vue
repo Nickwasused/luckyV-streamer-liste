@@ -25,7 +25,7 @@
         />
         <div
             v-once
-            class="absolute bottom-5 right-5 bg-black px-2 text-2xl text-white"
+            class="absolute bottom-1 right-1 bg-black px-2 text-2xl text-white"
         >
             {{ userName }}
             <img
