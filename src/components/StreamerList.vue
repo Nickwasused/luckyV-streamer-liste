@@ -99,11 +99,6 @@
             :cache-key="imgCacheKey"
         />
     </div>
-    <div v-if="streamers.length <= 0">
-        <h1 class="text-center">
-            {{ t("nolive") }}
-        </h1>
-    </div>
     <a
         v-if="filterstreamers.length > 3"
         href="#top"
@@ -338,7 +333,6 @@ const filterstreamers = computed<Array<Streamer>>(() => {
     "de": {
         "search": "Suche...",
         "searchinfo": "Streamer:in, Stream Titel.",
-        "nolive": "Leider ist aktuell kein Streamer:in live. 😴",
         "sort": {
             "viewer_high": "Zuschauer ⬆️",
             "viewer_low": "Zuschauer ⬇️",
@@ -353,7 +347,6 @@ const filterstreamers = computed<Array<Streamer>>(() => {
     "en": {
         "search": "Search...",
         "searchinfo": "Streamer, Stream Title.",
-        "nolive": "Unfortunately there is no streamer live at the moment. 😴",
         "sort": {
             "viewer_high": "Viewer ⬆️",
             "viewer_low": "Viewer ⬇️",

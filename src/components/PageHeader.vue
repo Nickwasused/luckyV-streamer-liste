@@ -2,7 +2,10 @@
     <table class="lg:w-[80%] w-[95%] font-[Courgette]">
         <tr>
             <td>
-                <h1
+                <h1 v-if="streamerCount <= 0" class="text-center text-4xl pt-8 font-[Courgette]">
+                    {{ t("nolive") }}
+                </h1>
+                <h1 v-if="streamerCount > 0"
                     :title="
                         t('tooltips.streamer', {
                             streamer_count: streamerCount,
@@ -170,6 +173,7 @@ onUnmounted(() => {
 {
     "de": {
         "streamer_head": "Streamer:innen Online: {count}",
+        "nolive": "Leider ist aktuell kein Streamer:in live. 😴",
         "altv_head_version": "alt:V Version:",
         "game_server_head": "Gameserver Status:",
         "players_online_head": "Spieler:innen Online:",
@@ -188,6 +192,7 @@ onUnmounted(() => {
     },
     "en": {
         "streamer_head": "Streamers Online: {count}",
+        "nolive": "Unfortunately there is no streamer live at the moment. 😴",
         "altv_head_version": "alt:V Version:",
         "game_server_head": "Gameserver Status:",
         "players_online_head": "Players Online:",
