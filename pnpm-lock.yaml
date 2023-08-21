@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 dependencies:
   '@intlify/unplugin-vue-i18n':
     specifier: ^0.12.3
@@ -11,8 +15,8 @@ dependencies:
     specifier: ^5.1.6
     version: 5.1.6
   villus:
-    specifier: ^3.1.0
-    version: 3.1.0(graphql@16.8.0)(vue@3.3.4)
+    specifier: ^3.2.0
+    version: 3.2.0(graphql@16.8.0)(vue@3.3.4)
   vite:
     specifier: ^4.4.9
     version: 4.4.9
@@ -4104,8 +4108,8 @@ packages:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
     dev: true
 
-  /villus@3.1.0(graphql@16.8.0)(vue@3.3.4):
-    resolution: {integrity: sha512-Z4fXLWB9OgVfWKCiGFf+KFX6Y0/2qEcqiCp2FVO3oUs9LkD1ksSgQU2H2rGV/YDEbYIwKgbcZRww3ysxy2HcXg==}
+  /villus@3.2.0(graphql@16.8.0)(vue@3.3.4):
+    resolution: {integrity: sha512-kb4Dv6Uvu7FSqfVnXTFb7I+VDv9fzFG2Emqu1eu9acY/Y3xM8xqy/I8w/HexNYDkofx5fGIgWk9nvfEWROtlGw==}
     peerDependencies:
       graphql: ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
       vue: ^3.0.0 || ^2.7.0
@@ -4444,7 +4448,3 @@ packages:
       y18n: 5.0.8
       yargs-parser: 21.1.1
     dev: true
-
-settings:
-  autoInstallPeers: true
-  excludeLinksFromLockfile: false
