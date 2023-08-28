@@ -9,8 +9,8 @@ dependencies:
     specifier: ^0.12.3
     version: 0.12.3(rollup@2.79.1)(vue-i18n@9.2.2)
   '@vitejs/plugin-vue':
-    specifier: ^4.3.2
-    version: 4.3.2(vite@4.4.9)(vue@3.3.4)
+    specifier: ^4.3.3
+    version: 4.3.3(vite@4.4.9)(vue@3.3.4)
   typescript:
     specifier: ^5.1.6
     version: 5.1.6
@@ -1696,8 +1696,8 @@ packages:
     resolution: {integrity: sha512-NfQ4gyz38SL8sDNrSixxU2Os1a5xcdFxipAFxYEuLUlvU2uDwS4NUpsImcf1//SlWItCVMMLiylsxbmNMToV/g==}
     dev: false
 
-  /@vitejs/plugin-vue@4.3.2(vite@4.4.9)(vue@3.3.4):
-    resolution: {integrity: sha512-iDDhGruwhKkwNwT5qgtGaeTxF4ULs52xpQbsC27F01kf3aQBHtrDP738pmHw4oclVAUA3m+Vk8gxhDV5KbfM+A==}
+  /@vitejs/plugin-vue@4.3.3(vite@4.4.9)(vue@3.3.4):
+    resolution: {integrity: sha512-ssxyhIAZqB0TrpUg6R0cBpCuMk9jTIlO1GNSKKQD6S8VjnXi6JXKfUXjSsxey9IwQiaRGsO1WnW9Rkl1L6AJVw==}
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
       vite: ^4.0.0
