@@ -26,6 +26,7 @@ export default defineConfig({
                 "android-chrome-192x192.png",
                 "android-chrome-512x512-maskable.png",
                 "android-chrome-512x512.png",
+                "apple-touch-icon.png",
                 "icon.svg",
             ],
             workbox: {
@@ -42,17 +43,17 @@ export default defineConfig({
                 background_color: "#343a40",
                 icons: [
                     {
-                        src: "img/icons/android-chrome-192x192.png",
+                        src: "/favicon/android-chrome-192x192.png",
                         sizes: "192x192",
                         type: "image/png",
                     },
                     {
-                        src: "img/icons/android-chrome-512x512.png",
+                        src: "/favicon/android-chrome-512x512.png",
                         sizes: "512x512",
                         type: "image/png",
                     },
                     {
-                        src: "img/icons/android-chrome-512x512-maskable.png",
+                        src: "/favicon/android-chrome-512x512-maskable.png",
                         sizes: "512x512",
                         type: "image/png",
                         purpose: "any maskable",
