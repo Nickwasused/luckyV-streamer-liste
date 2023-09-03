@@ -4,58 +4,39 @@
         :streamer-count="streamers.length"
     />
     <StreamerList :streamers="streamers" />
-    <div v-if="gql_error">
-        {{ gql_error }}
-    </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, computed } from "vue"
+import { ref, onMounted } from "vue";
 import PageHeader from "./components/PageHeader.vue"
 import StreamerList from "./components/StreamerList.vue"
-import { useQuery } from "villus"
+import api from "./mixins/api.js";
 
-const gql_error = ref(null)
-const gql_timer = ref<number | null>(null)
-const QUERY = `
-query {
-    getViewerCount(title: "${import.meta.env.VITE_SEARCH_TERM}")
-    Streamers(title: "${import.meta.env.VITE_SEARCH_TERM}") {
-      user_id
-      user_name
-      title
-      viewer_count
-      started_at
-      thumbnail_url
-    }
+const viewer_count = ref(0);
+const streamers = ref([]);
+
+function filterObject(obj: any) {
+    return {
+        user_id: obj.user_id,
+        user_name: obj.user_name,
+        title: obj.title.replace(/^(\[LuckyV\]|\[LuckyV\]|\[LuckyV.de\]|LuckyV\.de|Lucky V|LuckyV\.de|LuckyV)( |)(💛| 💛| 💛 |)/, ""),
+        viewer_count: obj.viewer_count,
+        started_at: obj.started_at,
+        thumbnail_url: obj.thumbnail_url
+    };
 }
-`
-
-const { data, execute, onError } = useQuery({
-    query: QUERY,
-})
-
-onError((error) => {
-    console.error(error)
-    gql_error.value = error
-})
-
-const viewer_count = computed<number>(() => data.value?.getViewerCount ?? 0)
-const streamers = computed<Array<Streamer>>(() => data.value?.Streamers ?? [])
-
-onMounted(() => {
-    if (gql_timer.value == null) {
-        gql_timer.value = setInterval(() => {
-            execute()
-        }, 300000)
+async function get_streamers() {
+    let api_response = await api.fetch_or_cache("https://tts-de-gta5.nickwasused.com/?search=luckyv", "streamers");
+    if (JSON.stringify(api_response) == JSON.stringify({})) {
+        api_response = [];
     }
-})
+    streamers.value = api_response.map(filterObject);
+    viewer_count.value = api_response.length;
+}
 
-onUnmounted(() => {
-    if (gql_timer.value) {
-        clearInterval(gql_timer.value)
-    }
-})
+onMounted(async () => {
+    await get_streamers();
+});
 </script>
 
 <style lang="css">
