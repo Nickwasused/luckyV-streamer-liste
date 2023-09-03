@@ -3,11 +3,9 @@
         class="bg-center bg-no-repeat bg-cover contrast-75 overflow-hidden relative transition-all"
     >
         <img
+            loading="lazy"
             class="w-full h-full"
-            v-lazyload
-            :src="placeholder"
-            srcset=""
-            :data-srcset="
+            :srcset="
                 `${thumbnailUrl
                     .replace('{width}', '320')
                     .replace('{height}', '180')}?cache-key=${cacheKey} 320w, ` +

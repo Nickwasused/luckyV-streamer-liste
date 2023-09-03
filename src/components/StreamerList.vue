@@ -131,26 +131,21 @@ button {
 </style>
 
 <script setup lang="ts">
-import { ref, onUnmounted, onMounted, computed, toRefs, PropType } from "vue"
+import { ref, onUnmounted, onMounted, computed } from "vue"
 import { useI18n } from "vue-i18n"
 import StreamerItem from "./StreamerItem.vue"
 import useDebouncedRef from "./useDebouncedRef.js"
 import x_icon from "@/assets/img/x.svg"
 import up_icon from "@/assets/img/up.svg"
+import api from "../mixins/api"
 
 const { t } = useI18n({
     useScope: "local",
     inheritLocale: true,
 })
 
-const props = defineProps({
-    streamers: {
-        type: Array<Streamer>,
-        required: true,
-    },
-})
-
-const { streamers } = toRefs(props)
+const streamers = ref([]);
+const emit = defineEmits(["set_viewer_count", "set_streamer_count"]);
 
 const imgCacheKey = ref<string>(Math.random().toString().substring(2, 8))
 const searchword = useDebouncedRef("", 300, false)
@@ -227,7 +222,33 @@ function window_resize(skip_delay: boolean = false) {
     }
 }
 
-onMounted(() => {
+function filterObject(obj: any) {
+    return {
+        user_id: obj.user_id,
+        user_name: obj.user_name,
+        title: obj.title.replace(/^(\[LuckyV\]|\[LuckyV\]|\[LuckyV.de\]|LuckyV\.de|Lucky V|LuckyV\.de|LuckyV)( |)(💛| 💛| 💛 |)/, ""),
+        viewer_count: obj.viewer_count,
+        started_at: obj.started_at,
+        thumbnail_url: obj.thumbnail_url
+    };
+}
+
+async function get_streamers() {
+    let api_response = await api.fetch_or_cache("https://tts-de-gta5.nickwasused.com/?search=luckyv", "streamers");
+    if (JSON.stringify(api_response) == JSON.stringify({})) {
+        api_response = [];
+    }
+    streamers.value = api_response.map(filterObject);
+    // create a array with only the viewer_count
+    const viewerCount = api_response.map(obj => obj.viewer_count);
+
+    // count all viewers together
+    const totalViewerCount = viewerCount.reduce((acc, count) => acc + count, 0);
+    emit("set_viewer_count", totalViewerCount);
+    emit("set_streamer_count", streamers.value.length);
+}
+
+onMounted(async () => {
     window_resize(true)
     window.addEventListener("resize", function () {
         window_resize(false)
@@ -241,6 +262,8 @@ onMounted(() => {
             localStorage.setItem("sort_method", searchfilter.value)
         }
     })
+
+    await get_streamers();
 })
 
 onUnmounted(() => {

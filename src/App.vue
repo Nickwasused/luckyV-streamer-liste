@@ -1,61 +1,29 @@
 <template>
-    <PageHeader
-        :viewer-count="viewer_count"
-        :streamer-count="streamers.length"
-    />
-    <StreamerList :streamers="streamers" />
-    <div v-if="gql_error">
-        {{ gql_error }}
-    </div>
+  <PageHeader
+    :viewer-count="app_viewerCount"
+    :streamer-count="app_streamerCount"
+  />
+  <StreamerList
+    @set_viewer_count="set_viewer_count"
+    @set_streamer_count="set_streamer_count"
+  />
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, computed } from "vue"
+import { ref } from "vue";
 import PageHeader from "./components/PageHeader.vue"
 import StreamerList from "./components/StreamerList.vue"
-import { useQuery } from "villus"
 
-const gql_error = ref(null)
-const gql_timer = ref<number | null>(null)
-const QUERY = `
-query {
-    getViewerCount(title: "${import.meta.env.VITE_SEARCH_TERM}")
-    Streamers(title: "${import.meta.env.VITE_SEARCH_TERM}") {
-      user_id
-      user_name
-      title
-      viewer_count
-      started_at
-      thumbnail_url
-    }
+const app_viewerCount = ref(0);
+const app_streamerCount = ref(0);
+
+function set_viewer_count(viewerCount: number) {
+    app_viewerCount.value = viewerCount;
 }
-`
 
-const { data, execute, onError } = useQuery({
-    query: QUERY,
-})
-
-onError((error) => {
-    console.error(error)
-    gql_error.value = error
-})
-
-const viewer_count = computed<number>(() => data.value?.getViewerCount ?? 0)
-const streamers = computed<Array<Streamer>>(() => data.value?.Streamers ?? [])
-
-onMounted(() => {
-    if (gql_timer.value == null) {
-        gql_timer.value = setInterval(() => {
-            execute()
-        }, 300000)
-    }
-})
-
-onUnmounted(() => {
-    if (gql_timer.value) {
-        clearInterval(gql_timer.value)
-    }
-})
+function set_streamer_count(streamerCount: number) {
+    app_streamerCount.value = streamerCount;
+}
 </script>
 
 <style lang="css">
