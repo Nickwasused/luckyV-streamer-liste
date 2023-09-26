@@ -234,7 +234,7 @@ function filterObject(obj: any) {
 }
 
 async function get_streamers() {
-    let api_response = await api.fetch_or_cache("https://tts-de-gta5.nickwasused.com/?search=luckyv", "streamers");
+    let api_response = await api.fetch_or_cache("https://tts-de-gta5.nickwasused.com/?title=(luckyv|lucky v)&game_id=32982&language=de&type=live", "streamers");
     if (JSON.stringify(api_response) == JSON.stringify({})) {
         api_response = [];
     }
