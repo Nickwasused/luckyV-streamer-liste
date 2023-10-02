@@ -11,7 +11,7 @@
         "pwa": "pnpm run build && npx http-server dist"
     },
     "dependencies": {
-        "@intlify/unplugin-vue-i18n": "^1.2.0",
+        "@intlify/unplugin-vue-i18n": "^1.4.0",
         "@vitejs/plugin-vue": "^4.3.4",
         "typescript": "^5.2.2",
         "vite": "^4.4.9",
