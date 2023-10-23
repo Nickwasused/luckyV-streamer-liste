@@ -8,21 +8,26 @@ interface Streamer {
 }
 
 interface Server {
+    available: boolean
     bannerUrl: null | string
     branch: string
+    banned: boolean
     build: number
     cdnUrl: string
     description: string
     earlyAuthUrl: string
     gameMode: string
-    host: string
-    id: string
+    ip: string
+    vanityUrl: string
+    publicId: string
     language: string
-    lastUpdate: number
-    locked: boolean
-    maxPlayers: number
+    lastTimeUpdate: string
+    passworded: boolean
+    hasCustomSkin: boolean
+    address: string
+    maxPlayersCount: number
     name: string
-    players: number
+    playersCount: number
     port: number
     promoted: boolean
     tags: Array<string>

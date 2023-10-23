@@ -2,10 +2,14 @@
     <table class="lg:w-[80%] w-[95%] font-[Courgette]">
         <tr>
             <td>
-                <h1 v-if="streamerCount <= 0" class="text-center text-4xl pt-8 font-[Courgette]">
+                <h1
+                    v-if="streamerCount <= 0"
+                    class="text-center text-4xl pt-8 font-[Courgette]"
+                >
                     {{ t("nolive") }}
                 </h1>
-                <h1 v-if="streamerCount > 0"
+                <h1
+                    v-if="streamerCount > 0"
                     :title="
                         t('tooltips.streamer', {
                             streamer_count: streamerCount,
@@ -49,7 +53,7 @@
             <td>
                 <a
                     :href="`https://api.alt-mp.com/server/${
-                        altv_server ? altv_server['id'] : ''
+                        altv_server ? altv_server['publicId'] : ''
                     }`"
                     rel="noopener noreferrer"
                     referrerpolicy="no-referrer"
@@ -64,7 +68,7 @@
             :title="
                 altv_server
                     ? t('tooltips.players', {
-                          player: altv_server.players,
+                          player: altv_server.playersCount,
                       })
                     : ''
             "
@@ -73,9 +77,9 @@
             <td>
                 {{
                     altv_server
-                        ? altv_server["players"] +
+                        ? altv_server["playersCount"] +
                           "/" +
-                          altv_server["maxPlayers"]
+                          altv_server["maxPlayersCount"]
                         : "0/0"
                 }}
             </td>
@@ -138,15 +142,15 @@ const altv_server = ref<Server | null>(null)
 
 async function fetch_altv_server() {
     const api_response = await api.fetch_or_cache(
-        `https://api.alt-mp.com/server/${import.meta.env.VITE_ALTV_SERVER_ID}`,
+        `https://api.alt-mp.com/servers/${import.meta.env.VITE_ALTV_SERVER_ID}`,
         "altv_server_data"
     )
 
     last_update.value = new Date().toLocaleTimeString(locale)
 
-    if (api_response["active"]) {
-        altv_server.value = api_response["info"]
-        altv_server_active.value = api_response["active"]
+    if (api_response["available"]) {
+        altv_server.value = api_response
+        altv_server_active.value = api_response["available"]
     }
 }
 

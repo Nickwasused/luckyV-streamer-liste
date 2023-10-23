@@ -1,7 +1,7 @@
 module.exports = {
     plugins: {
-      tailwindcss: {},
-      autoprefixer: {},
-      ...(process.env.CF_PAGES === '1' ? { cssnano: {} } : {})
-    }
+        tailwindcss: {},
+        autoprefixer: {},
+        ...(process.env.CF_PAGES === "1" ? { cssnano: {} } : {}),
+    },
 }
