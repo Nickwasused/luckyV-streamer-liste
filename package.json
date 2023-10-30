@@ -17,7 +17,7 @@
         "vite": "^4.5.0",
         "vite-plugin-pwa": "^0.16.5",
         "vue": "^3.3.6",
-        "vue-i18n": "^9.5.0",
+        "vue-i18n": "^9.6.2",
         "workbox-window": "^7.0.0"
     },
     "devDependencies": {
