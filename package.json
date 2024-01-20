@@ -12,8 +12,8 @@
         "pwa": "pnpm run build && npx http-server dist"
     },
     "dependencies": {
-        "@intlify/unplugin-vue-i18n": "^1.6.0",
-        "@vitejs/plugin-vue": "^4.6.2",
+        "@intlify/unplugin-vue-i18n": "^2.0.0",
+        "@vitejs/plugin-vue": "^5.0.3",
         "postcss-plugin": "^1.0.0",
         "typescript": "^5.3.3",
         "vite": "^5.0.12",
@@ -32,8 +32,8 @@
     },
     "postcss": {
         "plugins": {
-          "tailwindcss": {},
-          "autoprefixer": {}
+            "tailwindcss": {},
+            "autoprefixer": {}
         }
     }
 }
