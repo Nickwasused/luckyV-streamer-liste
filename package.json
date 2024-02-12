@@ -17,7 +17,7 @@
         "postcss-plugin": "^1.0.0",
         "typescript": "^5.3.3",
         "vite": "^5.0.12",
-        "vite-plugin-pwa": "^0.17.5",
+        "vite-plugin-pwa": "^0.18.1",
         "vue": "^3.4.15",
         "vue-i18n": "^9.9.1",
         "workbox-window": "^7.0.0"
