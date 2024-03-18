@@ -50,8 +50,8 @@ devDependencies:
     specifier: ^3.4.1
     version: 3.4.1
   vite-bundle-visualizer:
-    specifier: ^1.0.1
-    version: 1.0.1(rollup@2.79.1)
+    specifier: ^1.1.0
+    version: 1.1.0(rollup@2.79.1)
 
 packages:
 
@@ -4435,8 +4435,9 @@ packages:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
     dev: true
 
-  /vite-bundle-visualizer@1.0.1(rollup@2.79.1):
-    resolution: {integrity: sha512-JdUu5viGyw7K1HMstqaAN7y1rnNz93srGeF7FJgFCzM7NL1nH/QlpywDA296qv/KjPPPsq60mOJhtXddikVKSA==}
+  /vite-bundle-visualizer@1.1.0(rollup@2.79.1):
+    resolution: {integrity: sha512-cmi5OuS7Eta5keTJmCTEbBBA7gOsUQ4K44W5dbsP+n/X0GIilIIFbJeXF120MQpTxdiZ/GIx4A9zkPEcKpPAog==}
+    engines: {node: ^18.19.0 || >=20.6.0}
     hasBin: true
     dependencies:
       cac: 6.7.14
