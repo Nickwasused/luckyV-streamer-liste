@@ -13,15 +13,15 @@
         "lib": ["esnext", "dom"],
         "types": ["vite/client", "node", "jest"],
         "paths": {
-            "@/*": ["src/*"],
-        },
+            "@/*": ["src/*"]
+        }
     },
     "include": [
         "src/**/*.ts",
         "src/**/*.d.ts",
         "src/**/*.tsx",
         "src/**/*.vue",
-        "tests/**/*.ts",
+        "tests/**/*.ts"
     ],
-    "exclude": ["node_modules", "dist", "tmp"],
+    "exclude": ["node_modules", "dist", "tmp"]
 }
