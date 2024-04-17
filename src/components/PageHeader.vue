@@ -106,11 +106,16 @@ td {
 }
 
 tr:nth-of-type(even) {
-    @apply bg-[#2e2e2e];
+    @apply bg-slate-300 dark:bg-[#2e2e2e];
 }
 
 h1 {
     @apply m-[2%] lg:text-6xl text-4xl text-center;
+}
+
+h1,
+table {
+    @apply text-black dark:text-white;
 }
 </style>
 

@@ -70,11 +70,11 @@
     </div>
     <div
         v-if="streamers.length > 0"
-        class="flex w-[80%] m-auto p-1 text-4xl border-[1px] rounded bg-[#333] border-[#1a1a1a]"
+        class="flex w-[80%] m-auto p-1 text-4xl border-[1px] rounded dark:bg-[#333] bg-slate-50 border-[#1a1a1a]"
         :title="t('searchinfo')"
     >
         <input
-            class="w-[95%] p-3 bg-[#333] font-[Courgette] focus:outline-none text-[#dadada]"
+            class="w-[95%] p-3 dark:bg-[#333] bg-slate-50 font-[Courgette] focus:outline-none text-[#dadada]"
             v-model="searchword"
             type="text"
             :placeholder="t('search')"
