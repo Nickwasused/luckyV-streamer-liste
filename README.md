@@ -1,45 +1,62 @@
-# Using
+<h3 align="center">Streaming list</h3>
 
--   [Vue.js (Vue 3)](https://vuejs.org/), "An approachable, performant and versatile framework for building web user interfaces."
--   [Twitch Search Server](https://github.com/Nickwasused/twitch-search-server), a custom Search for Twitch.
+<div align="center">
 
-# Features
+  [![Status](https://img.shields.io/badge/status-active-success.svg)]() 
+  [![License](https://img.shields.io/github/license/nickwasused/streaming-list)](/LICENSE)
 
--   PWA ([Progressive web application](https://wikiless.org/wiki/Progressive_web_application))
--   SPA ([Single-page application](https://wikiless.org/wiki/single_page_application))
--   [Tailwind css](https://tailwindcss.com/)
--   Automatic refresh (alt:V, Twitch)
--   Lazy loading images with ([Intersection Observer](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API))
--   Fast Builds (~12 seconds on Vercel)
--   Small Builds (0.28 MB, with external Font)
--   Caching API data in localstorage
--   Multi language support (Currently German and English) with Automatic detection.
--   Sort streams by Viewer count, Alphabetically, runtime or randomize the list.
--   Search streams by title or Username.
--   Show the status of the game server, e.g. if the server is online.
--   Tooltips to describe values.
+</div>
 
-# Preview
+---
 
-![streaming-list-de-preview](./github-images/preview/preview-de.webp)
-![streaming-list-en-preview](./github-images/preview/preview-en.webp)
+<p align="center"> A searchable, auto-updating list of streamers for a certain topic.
+    <br> 
+</p>
 
-# Building and development
+## 📝 Table of Contents
+- [About](#about)
+- [Getting Started](#getting_started)
+- [Deployment](#deployment)
+- [Usage](#usage)
+- [Built Using](#built_using)
+- [Affiliation](#affiliation)
 
-0. Make sure that you have [node 16+](https://nodejs.org/en/) installed with [PNPM](https://www.npmjs.com/package/pnpm)
-1. Start by cloning the repository: `git clone https://github.com/Nickwasused/streaming-list.git`
-2. Change into the directory and open a shell of some sort e.g. PowerShell, bash
-3. install the dependencies with: `pnpm i`
-4. now you can start developing with: `pnpm run dev`
+## 🧐 About <a name = "about"></a>
+A searchable, auto-updating list of streamers for a certain topic.
 
-You can get started by editing the .env file
+## 🏁 Getting Started <a name = "getting_started"></a>
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See [deployment](#deployment) for notes on how to deploy the project on a live system.
 
-# Speed
+### Prerequisites
+What things you need to install the software and how to install them.
 
-## mobile
+`pnpm` [is required](https://pnpm.io/)
+`twitch-search-server` [instance is required](https://github.com/Nickwasused/twitch-search-server)
 
-![performance-mobile](./github-images/speed/mobile.webp)
+### Installing
+A step by step series of examples that tell you how to get a development env running.
 
-## desktop
+Install the dependencies with:
 
-![performance-desktop](./github-images/speed/desktop.webp)
+```console
+pnpm install
+```
+
+Then you can open your browser and see the page at [http://127.0.0.1:3000/](http://127.0.0.1:3000/).
+
+## 🎈 Usage <a name="usage"></a>
+No extra notes.
+
+## 🚀 Deployment <a name = "deployment"></a>
+You can see a deployment example at [./.github/workflows/build-and-deploy.yml]
+
+## Style
+The code is formatted and checked with [prettier](https://prettier.io/)s default settings.
+
+## ⛏️ Built Using <a name = "built_using"></a>
+- [Vue.js](https://vuejs.org/) - JavaScript Framework 
+- [prettier](https://prettier.io/) - code formatter
+- [tailwindcss](https://tailwindcss.com/) - CSS framework
+- [pnpm](https://pnpm.io/) - package manager
+
+## Affiliation <a name = "affiliation"></a>
