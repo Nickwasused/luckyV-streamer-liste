@@ -43,7 +43,15 @@ pnpm install
 Then you can open your browser and see the page at [http://127.0.0.1:3000/](http://127.0.0.1:3000/).
 
 ## 🎈 Usage <a name="usage"></a>
-No extra notes.
+Here are a few preview images of the deployed site:
+
+![https://github.com/Nickwasused/streaming-list/blob/main/github-images/preview/preview-de.webp](https://github.com/Nickwasused/streaming-list/blob/main/github-images/preview/preview-de.webp)
+![https://github.com/Nickwasused/streaming-list/blob/main/github-images/preview/preview-de.webp](https://github.com/Nickwasused/streaming-list/blob/main/github-images/preview/preview-en.webp)
+
+Here are the google pagespeed stats:
+
+![https://github.com/Nickwasused/streaming-list/blob/main/github-images/speed/desktop.webp](https://github.com/Nickwasused/streaming-list/blob/main/github-images/speed/desktop.webp)
+![https://github.com/Nickwasused/streaming-list/blob/main/github-images/speed/mobile.webp](https://github.com/Nickwasused/streaming-list/blob/main/github-images/speed/mobile.webp)
 
 ## 🚀 Deployment <a name = "deployment"></a>
 You can see a deployment example at [./.github/workflows/build-and-deploy.yml](./.github/workflows/build-and-deploy.yml)
