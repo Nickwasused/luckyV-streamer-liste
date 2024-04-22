@@ -74,7 +74,7 @@
         :title="t('searchinfo')"
     >
         <input
-            class="w-[95%] p-3 dark:bg-[#333] bg-slate-50 font-[Courgette] focus:outline-none text-[#dadada]"
+            class="w-[95%] p-3 dark:bg-[#333] bg-slate-50 font-[Courgette] focus:outline-none text-black dark:text-[#dadada]"
             v-model="searchword"
             type="text"
             :placeholder="t('search')"
