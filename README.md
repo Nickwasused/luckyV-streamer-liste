@@ -28,13 +28,11 @@ A searchable, auto-updating list of streamers for a certain topic.
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See [deployment](#deployment) for notes on how to deploy the project on a live system.
 
 ### Prerequisites
-What things you need to install the software and how to install them.
 
-`pnpm` [is required](https://pnpm.io/)
-`twitch-search-server` [instance is required](https://github.com/Nickwasused/twitch-search-server)
+`pnpm` [is required](https://pnpm.io/)  
+`twitch-search-server` [instance is required](https://github.com/Nickwasused/twitch-search-server)  
 
 ### Installing
-A step by step series of examples that tell you how to get a development env running.
 
 Install the dependencies with:
 
@@ -48,7 +46,7 @@ Then you can open your browser and see the page at [http://127.0.0.1:3000/](http
 No extra notes.
 
 ## 🚀 Deployment <a name = "deployment"></a>
-You can see a deployment example at [./.github/workflows/build-and-deploy.yml]
+You can see a deployment example at [./.github/workflows/build-and-deploy.yml](./.github/workflows/build-and-deploy.yml)
 
 ## Style
 The code is formatted and checked with [prettier](https://prettier.io/)s default settings.
