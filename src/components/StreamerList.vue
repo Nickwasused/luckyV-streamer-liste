@@ -222,28 +222,31 @@ function window_resize(skip_delay: boolean = false) {
     }
 }
 
-function filterObject(obj: any) {
-    return {
-        user_id: obj.user_id,
-        user_name: obj.user_name,
-        title: obj.title,
-        viewer_count: obj.viewer_count,
-        started_at: obj.started_at,
-        thumbnail_url: obj.thumbnail_url,
+function filterObject(obj: RawStreamer) {
+    if (obj.game_id == "32982" && obj.language == "de" && obj.type == "live") {
+        return {
+            user_id: obj.user_id,
+            user_name: obj.user_name,
+            title: obj.title,
+            viewer_count: obj.viewer_count,
+            started_at: obj.started_at,
+            thumbnail_url: obj.thumbnail_url,
+        }
     }
 }
 
 async function get_streamers() {
     let api_response = await api.fetch_or_cache(
-        "https://tts-de-gta5.nickwasused.com/?title=(luckyv|lucky v)&game_id=32982&language=de&type=live",
+        "https://tts-de-gta5.nickwasused.com/search?query=luckyv",
         "streamers"
     )
+
     if (JSON.stringify(api_response) == JSON.stringify({})) {
         api_response = []
     }
-    streamers.value = api_response.map(filterObject)
+    streamers.value = api_response["data"].map(filterObject)
     // create a array with only the viewer_count
-    const viewerCount = api_response.map((obj) => obj.viewer_count)
+    const viewerCount: Array<number> = api_response["data"].map((obj: Streamer) => obj.viewer_count)
 
     // count all viewers together
     const totalViewerCount = viewerCount.reduce((acc, count) => acc + count, 0)
