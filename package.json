@@ -27,7 +27,7 @@
     },
     "devDependencies": {
         "prettier": "^3.2.5",
-        "vite-bundle-visualizer": "^1.1.0"
+        "vite-bundle-visualizer": "^1.2.1"
     },
     "postcss": {
         "plugins": {
