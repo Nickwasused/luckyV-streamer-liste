@@ -40,7 +40,6 @@
 </template>
 
 <script setup lang="ts">
-import placeholder from "@/assets/img/placeholder.webp"
 import external_icon from "@/assets/img/external.svg"
 import twitch_icon from "@/assets/img/twitch.svg"
 

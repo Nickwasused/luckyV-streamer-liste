@@ -146,6 +146,8 @@ const { t } = useI18n({
 
 const streamers = ref([])
 const emit = defineEmits(["set_viewer_count", "set_streamer_count"])
+const update_timer = ref<null | number>(null)
+let fetching_streamers: boolean = false;
 
 const imgCacheKey = ref<string>(Math.random().toString().substring(2, 8))
 const searchword = useDebouncedRef("", 300, false)
@@ -236,6 +238,11 @@ function filterObject(obj: RawStreamer) {
 }
 
 async function get_streamers() {
+    if (fetching_streamers) {
+        console.warn("we are still fetching the streamers!")
+        return
+    }
+    fetching_streamers = true;
     let api_response = await api.fetch_or_cache(
         "https://tts-de-gta5.nickwasused.com/search?query=luckyv",
         "streamers"
@@ -252,6 +259,7 @@ async function get_streamers() {
     const totalViewerCount = viewerCount.reduce((acc, count) => acc + count, 0)
     emit("set_viewer_count", totalViewerCount)
     emit("set_streamer_count", streamers.value.length)
+    fetching_streamers = false;
 }
 
 onMounted(async () => {
@@ -268,6 +276,12 @@ onMounted(async () => {
             localStorage.setItem("sort_method", searchfilter.value)
         }
     })
+
+    if (update_timer.value == null) {
+        update_timer.value = setInterval(() => {
+            get_streamers()
+        }, 300000)
+    }
 
     await get_streamers()
 })

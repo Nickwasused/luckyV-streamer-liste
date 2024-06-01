@@ -143,9 +143,15 @@ const props = defineProps({
 const altv_server_active = ref<boolean>(false)
 const last_update = ref<string>(t("last_update_never"))
 const update_timer = ref<null | number>(null)
+let fetching_server: boolean = false;
 const altv_server = ref<Server | null>(null)
 
 async function fetch_altv_server() {
+    if (fetching_server) {
+        console.warn("we are still fetching the server data!")
+        return
+    }
+    fetching_server = true;
     const api_response = await api.fetch_or_cache(
         `https://api.alt-mp.com/servers/${import.meta.env.VITE_ALTV_SERVER_ID}`,
         "altv_server_data"
@@ -157,6 +163,7 @@ async function fetch_altv_server() {
         altv_server.value = api_response
         altv_server_active.value = api_response["available"]
     }
+    fetching_server = false;
 }
 
 onBeforeMount(async () => {
