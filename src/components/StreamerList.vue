@@ -252,6 +252,7 @@ async function get_streamers() {
         api_response = []
     }
     streamers.value = api_response["data"].map(filterObject)
+    imgCacheKey.value = Math.random().toString().substring(2, 8)
     // create a array with only the viewer_count
     const viewerCount: Array<number> = api_response["data"].map((obj: Streamer) => obj.viewer_count)
 
